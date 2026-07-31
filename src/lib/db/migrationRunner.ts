@@ -472,6 +472,13 @@ function isSchemaAlreadyApplied(
       return hasColumn(db, "version_manager", "auto_restart_adopted");
     case "138":
       return hasColumn(db, "upstream_proxy_config", "fallback_backend");
+    case "140":
+      // Retired-provider purge occupied 135, 136, and 137 on earlier PR revisions.
+      // Preserve those installs while leaving the release migrations in those slots intact.
+      return (
+        hasTable(db, "retired_provider_purge_queue") &&
+        hasTable(db, "retired_provider_purge_artifacts")
+      );
     default:
       return false;
   }
