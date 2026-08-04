@@ -1120,8 +1120,8 @@
     "consoleLogs": "Nhật ký bảng điều khiển",
     "logsTimeline": "Timeline",
     "logsTimelineSubtitle": "Dòng thời gian yêu cầu trực quan",
-    "conversations": "__MISSING__:Conversations",
-    "conversationsSubtitle": "__MISSING__:Multi-turn agentic conversations",
+    "conversations": "Cuộc trò chuyện",
+    "conversationsSubtitle": "Cuộc trò chuyện tác tử nhiều lượt",
     "globalRouting": "Định tuyến toàn cục",
     "mitmProxy": "MITM Proxy",
     "oneProxy": "1Proxy",
@@ -10296,7 +10296,7 @@
       "tps": "TPS",
       "duration": "Thời lượng",
       "time": "Thời gian",
-      "conversation": "__MISSING__:Conversation"
+      "conversation": "Cuộc trò chuyện"
     },
     "loadingLogs": "Đang tải nhật ký...",
     "noLogs": "Chưa có nhật ký nào. Hãy thực hiện một số cuộc gọi API để xem chúng ở đây.",
