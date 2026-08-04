@@ -24,10 +24,7 @@ import {
 } from "./streamHelpers.ts";
 import { calculateCost } from "@/lib/usage/costCalculator";
 import { buildOmniRouteSseMetadataComment } from "@/domain/omnirouteResponseMeta";
-import {
-  createStructuredSSECollector,
-  buildStreamSummaryFromEvents,
-} from "./streamPayloadCollector.ts";
+import { createStructuredSSECollector } from "./streamPayloadCollector.ts";
 import { STREAM_IDLE_TIMEOUT_MS, FETCH_BODY_TIMEOUT_MS, HTTP_STATUS } from "../config/constants.ts";
 import {
   OMIT_STREAMING_CHUNK_MARKER,
@@ -821,6 +818,11 @@ export function createSSEStream(options: StreamOptions = {}) {
   let doneSent = false;
   const providerPayloadCollector = createStructuredSSECollector({
     stage: "provider_response",
+    // #9315: compute the summary live from every pushed chunk (not just the
+    // ones that survive the storage cap below) so a long stream never shows a
+    // stale/incomplete "provider response" in the dashboard.
+    format: sourceFormat,
+    fallbackModel: model,
   });
   const clientPayloadCollector = createStructuredSSECollector({
     stage: "client_response",
@@ -2508,11 +2510,7 @@ export function createSSEStream(options: StreamOptions = {}) {
                   usage,
                   responseBody,
                   providerPayload: providerPayloadCollector.build(
-                    buildStreamSummaryFromEvents(
-                      providerPayloadCollector.getEvents(),
-                      sourceFormat,
-                      model
-                    ),
+                    providerPayloadCollector.getSummary(),
                     { includeEvents: false }
                   ),
                   clientPayload: clientPayloadCollector.build(responseBody, {
@@ -2621,11 +2619,7 @@ export function createSSEStream(options: StreamOptions = {}) {
                   error: err.message,
                   errorCode: err.code,
                   providerPayload: providerPayloadCollector.build(
-                    buildStreamSummaryFromEvents(
-                      providerPayloadCollector.getEvents(),
-                      targetFormat,
-                      model
-                    ),
+                    providerPayloadCollector.getSummary(),
                     { includeEvents: false }
                   ),
                   clientPayload: clientPayloadCollector.build(errorBody, {
@@ -2783,11 +2777,7 @@ export function createSSEStream(options: StreamOptions = {}) {
                 usage: state?.usage,
                 responseBody,
                 providerPayload: providerPayloadCollector.build(
-                  buildStreamSummaryFromEvents(
-                    providerPayloadCollector.getEvents(),
-                    targetFormat,
-                    model
-                  ),
+                  providerPayloadCollector.getSummary(),
                   { includeEvents: false }
                 ),
                 clientPayload: clientPayloadCollector.build(responseBody, {
