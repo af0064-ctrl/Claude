@@ -394,6 +394,7 @@ export async function executeChatWithBreaker({
   skipUpstreamRetry = false,
   trafficType = "production",
   correlationId = null,
+  conversationId = null,
   modelPinned = false,
   routingComboId = null,
 }: ExecuteChatWithBreakerOptions): Promise<{ result: any; tlsFingerprintUsed: boolean }> {
@@ -432,6 +433,7 @@ export async function executeChatWithBreaker({
             skipUpstreamRetry,
             trafficType: normalizedTrafficType,
             correlationId,
+            conversationId,
             modelPinned,
             routingComboId,
             onCredentialsRefreshed: async (newCreds: any) => {
@@ -868,6 +870,23 @@ export function withCorrelationId(response: Response, correlationId: string | nu
       headers: response.headers,
     });
     cloned.headers.set("X-Correlation-Id", correlationId);
+    return cloned;
+  }
+}
+
+export function withConversationId(response: Response, conversationId: string | null): Response {
+  if (!response || !conversationId) return response;
+
+  try {
+    response.headers.set("X-ConversationId", conversationId);
+    return response;
+  } catch {
+    const cloned = new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers,
+    });
+    cloned.headers.set("X-ConversationId", conversationId);
     return cloned;
   }
 }
