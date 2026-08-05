@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Alltid synlig",
     "groupSeparatorLabel": "Skillelinje",
     "discovery": "Oppdagelse",
-    "discoverySubtitle": "Skann leverandører for gratis tilgang"
+    "discoverySubtitle": "Skann leverandører for gratis tilgang",
+    "resilienceConnections": "Tilkoblingsresiliens",
+    "resilienceConnectionsSubtitle": "Cooldown, bryter, lockout-status"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Partnerlenke",
     "dismissAriaLabel": "Avvis"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Tilkoblingsresiliens",
+    "table": {
+      "status": "Status",
+      "provider": "Leverandør",
+      "connectionId": "Tilkobling",
+      "authType": "Autentisering",
+      "backoffLevel": "Backoff",
+      "cooldown": "Cooldown",
+      "lastError": "Siste Feil",
+      "lockouts": "Lockouts",
+      "healthy": "Frisk",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Krets Åpen",
+      "recovering": "Gjenoppretter",
+      "degraded": "Forringet",
+      "terminal": "Terminal",
+      "unknown": "Ukjent",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Bryterovergangar",
+      "window": "Vindu",
+      "window1h": "1t",
+      "window6h": "6t",
+      "window24h": "24t",
+      "empty": "Ingen overganger i valgt vindu",
+      "currentState": "Gjeldende Status",
+      "state": {
+        "open": "Åpen",
+        "half_open": "Halvåpen",
+        "closed": "Lukket",
+        "degraded": "Forringet"
+      },
+      "reason": {
+        "timeout-elapsed": "Tidsavbrudd",
+        "success-recovery": "Gjenoppretting ved Suksess",
+        "manual-reset": "Manuell Tilbakestilling",
+        "probe-success": "Prøve Vellykket",
+        "recovery": "Gjenoppretting",
+        "probe-failed": "Prøve Mislyktes"
+      }
+    },
+    "detail": {
+      "title": "Tilkoblingsdetalj",
+      "metadata": "Metadata",
+      "cooldown": "Cooldown",
+      "lastError": "Siste Feil",
+      "breaker": "Kretsbryter",
+      "lockouts": "Modelllåsinger",
+      "rateLimitedUntil": "Hastighetsbegrenset Til",
+      "backoffLevel": "Backoff-nivå",
+      "remaining": "Gjenstående",
+      "noLockouts": "Ingen aktive lockouts",
+      "provider": "Leverandør",
+      "id": "ID",
+      "authType": "Autentiseringstype",
+      "priority": "Prioritet",
+      "isActive": "Aktiv",
+      "errorCode": "Feilkode",
+      "lastErrorAt": "Siste Feil Kl",
+      "yes": "Ja",
+      "no": "Nei",
+      "close": "Lukk",
+      "never": "-",
+      "failureCount": "Antall Feil",
+      "retryAfterMs": "Prøv Igjen Etter (ms)",
+      "lastFailureKind": "Siste Feiltype"
+    },
+    "empty": {
+      "title": "Ingen tilkoblinger",
+      "description": "Leverandørtilkoblinger vises her."
+    },
+    "loading": {
+      "title": "Laster",
+      "description": "Henter tilkoblingsresiliensstatus..."
+    },
+    "summary": {
+      "total": "{count} tilkoblinger",
+      "coolingDown": "{count} i cooldown",
+      "unhealthyBreakers": "{count} brytere ikke lukket",
+      "capped": "viser de første 1000"
+    },
+    "pollingNote": "Merk: visning av denne siden utløser bryterens late gjenoppretting (HALF_OPEN-prøver). Oppdateres hvert 30. sekund.",
+    "retry": "Prøv Igjen",
+    "pollErrorLocalOnly": "Denne siden er kun tilgjengelig fra localhost eller LAN (LOCAL_ONLY).",
+    "pollErrorStopped": "Polling stoppet: serveren avviste forespørselen (404/403).",
+    "pollErrorTransient": "Feil ved henting av data: prøver automatisk igjen.",
+    "degraded": "Delvise data: utilgjengelige kilder: {sources}",
+    "degraded.source.database": "Database",
+    "degraded.source.circuitBreaker": "Kretsbryter",
+    "degraded.source.modelLockouts": "Modelllåsinger",
+    "degraded.source.count": "Antall Tilkoblinger"
+  }
 }

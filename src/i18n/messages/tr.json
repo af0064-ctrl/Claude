@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Her zaman görünür",
     "groupSeparatorLabel": "Ayırıcı",
     "discovery": "Keşif",
-    "discoverySubtitle": "Ücretsiz erişim için sağlayıcıları tarayın"
+    "discoverySubtitle": "Ücretsiz erişim için sağlayıcıları tarayın",
+    "resilienceConnections": "Bağlantı Dayanıklılığı",
+    "resilienceConnectionsSubtitle": "Soğuma, devre kesici, kilit durumu"
   },
   "webhooks": {
     "title": "Web kancaları",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Ortaklık bağlantısı",
     "dismissAriaLabel": "Kapat"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Bağlantı Dayanıklılığı",
+    "table": {
+      "status": "Durum",
+      "provider": "Sağlayıcı",
+      "connectionId": "Bağlantı",
+      "authType": "Kimlik Doğrulama",
+      "backoffLevel": "Geri Çekilme",
+      "cooldown": "Soğuma",
+      "lastError": "Son Hata",
+      "lockouts": "Kilitler",
+      "healthy": "Sağlıklı",
+      "coolingDown": "Soğuma",
+      "circuitOpen": "Devre Açık",
+      "recovering": "Kurtarılıyor",
+      "degraded": "Bozulmuş",
+      "terminal": "Sonlanmış",
+      "unknown": "Bilinmiyor",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Devre Kesici Geçişleri",
+      "window": "Pencere",
+      "window1h": "1s",
+      "window6h": "6s",
+      "window24h": "24s",
+      "empty": "Seçilen pencerede geçiş yok",
+      "currentState": "Mevcut Durum",
+      "state": {
+        "open": "Açık",
+        "half_open": "Yarı Açık",
+        "closed": "Kapalı",
+        "degraded": "Bozulmuş"
+      },
+      "reason": {
+        "timeout-elapsed": "Zaman Aşımı",
+        "success-recovery": "Başarıyla Kurtarma",
+        "manual-reset": "Manuel Sıfırlama",
+        "probe-success": "Sonda Başarılı",
+        "recovery": "Kurtarma",
+        "probe-failed": "Sonda Başarısız"
+      }
+    },
+    "detail": {
+      "title": "Bağlantı Detayı",
+      "metadata": "Meta Veri",
+      "cooldown": "Soğuma",
+      "lastError": "Son Hata",
+      "breaker": "Devre Kesici",
+      "lockouts": "Model Kilitleri",
+      "rateLimitedUntil": "Şu Zamana Kadar Hız Sınırlı",
+      "backoffLevel": "Geri Çekilme Seviyesi",
+      "remaining": "Kalan",
+      "noLockouts": "Aktif kilit yok",
+      "provider": "Sağlayıcı",
+      "id": "ID",
+      "authType": "Kimlik Doğrulama Türü",
+      "priority": "Öncelik",
+      "isActive": "Etkin",
+      "errorCode": "Hata Kodu",
+      "lastErrorAt": "Son Hata Zamanı",
+      "yes": "Evet",
+      "no": "Hayır",
+      "close": "Kapat",
+      "never": "-",
+      "failureCount": "Hata Sayısı",
+      "retryAfterMs": "Sonra Yeniden Dene (ms)",
+      "lastFailureKind": "Son Hata Türü"
+    },
+    "empty": {
+      "title": "Bağlantı yok",
+      "description": "Sağlayıcı bağlantıları burada görünecek."
+    },
+    "loading": {
+      "title": "Yükleniyor",
+      "description": "Bağlantı dayanıklılığı durumu alınıyor..."
+    },
+    "summary": {
+      "total": "{count} bağlantı",
+      "coolingDown": "{count} soğumada",
+      "unhealthyBreakers": "{count} devre kesici kapalı değil",
+      "capped": "ilk 1000 gösteriliyor"
+    },
+    "pollingNote": "Not: Bu sayfayı görüntülemek devre kesicinin tembel kurtarmasını (HALF_OPEN sondaları) tetikler. 30 saniyede bir yenilenir.",
+    "retry": "Yeniden Dene",
+    "pollErrorLocalOnly": "Bu sayfaya yalnızca localhost veya LAN üzerinden erişilebilir (LOCAL_ONLY).",
+    "pollErrorStopped": "Yoklama durduruldu: sunucu isteği reddetti (404/403).",
+    "pollErrorTransient": "Veri alınırken hata: otomatik olarak yeniden deneniyor.",
+    "degraded": "Kısmi veri: kullanılamayan kaynaklar: {sources}",
+    "degraded.source.database": "Veritabanı",
+    "degraded.source.circuitBreaker": "Devre Kesici",
+    "degraded.source.modelLockouts": "Model Kilitleri",
+    "degraded.source.count": "Bağlantı Sayısı"
+  }
 }

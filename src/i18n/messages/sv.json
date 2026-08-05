@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Alltid synlig",
     "groupSeparatorLabel": "Avskiljare",
     "discovery": "Upptäckt",
-    "discoverySubtitle": "Skanna leverantörer efter fri åtkomst"
+    "discoverySubtitle": "Skanna leverantörer efter fri åtkomst",
+    "resilienceConnections": "Anslutningsresiliens",
+    "resilienceConnectionsSubtitle": "Cooldown, brytare, låsstatus"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Partnerlänk",
     "dismissAriaLabel": "Avvisa"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Anslutningsresiliens",
+    "table": {
+      "status": "Status",
+      "provider": "Leverantör",
+      "connectionId": "Anslutning",
+      "authType": "Autentisering",
+      "backoffLevel": "Backoff",
+      "cooldown": "Cooldown",
+      "lastError": "Senaste Fel",
+      "lockouts": "Låsningar",
+      "healthy": "Frisk",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Krets Öppen",
+      "recovering": "Återhämtar",
+      "degraded": "Försämrad",
+      "terminal": "Terminal",
+      "unknown": "Okänd",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Brytarövergångar",
+      "window": "Fönster",
+      "window1h": "1t",
+      "window6h": "6t",
+      "window24h": "24t",
+      "empty": "Inga övergångar i valt fönster",
+      "currentState": "Nuvarande Status",
+      "state": {
+        "open": "Öppen",
+        "half_open": "Halvöppen",
+        "closed": "Stängd",
+        "degraded": "Försämrad"
+      },
+      "reason": {
+        "timeout-elapsed": "Timeout Uppnådd",
+        "success-recovery": "Återhämtning genom Framgång",
+        "manual-reset": "Manuell Återställning",
+        "probe-success": "Sondering Lyckades",
+        "recovery": "Återhämtning",
+        "probe-failed": "Sondering Misslyckades"
+      }
+    },
+    "detail": {
+      "title": "Anslutningsdetalj",
+      "metadata": "Metadata",
+      "cooldown": "Cooldown",
+      "lastError": "Senaste Fel",
+      "breaker": "Kretsbrytare",
+      "lockouts": "Modellåsningar",
+      "rateLimitedUntil": "Hastighetsbegränsad Till",
+      "backoffLevel": "Backoff-nivå",
+      "remaining": "Återstående",
+      "noLockouts": "Inga aktiva låsningar",
+      "provider": "Leverantör",
+      "id": "ID",
+      "authType": "Autentiseringstyp",
+      "priority": "Prioritet",
+      "isActive": "Aktiv",
+      "errorCode": "Felkod",
+      "lastErrorAt": "Senaste Fel Vid",
+      "yes": "Ja",
+      "no": "Nej",
+      "close": "Stäng",
+      "never": "-",
+      "failureCount": "Antal Fel",
+      "retryAfterMs": "Försök Igen Efter (ms)",
+      "lastFailureKind": "Senaste Feltyp"
+    },
+    "empty": {
+      "title": "Inga anslutningar",
+      "description": "Leverantörsanslutningar visas här."
+    },
+    "loading": {
+      "title": "Laddar",
+      "description": "Hämtar anslutningsresiliensstatus..."
+    },
+    "summary": {
+      "total": "{count} anslutningar",
+      "coolingDown": "{count} i cooldown",
+      "unhealthyBreakers": "{count} brytare ej stängda",
+      "capped": "visar de första 1000"
+    },
+    "pollingNote": "Obs: att visa denna sida utlöser brytarens lata återhämtning (HALF_OPEN-sonderingar). Uppdateras var 30:e sekund.",
+    "retry": "Försök Igen",
+    "pollErrorLocalOnly": "Denna sida är endast åtkomlig från localhost eller LAN (LOCAL_ONLY).",
+    "pollErrorStopped": "Pollning stoppad: servern avvisade förfrågan (404/403).",
+    "pollErrorTransient": "Fel vid hämtning av data: försöker automatiskt igen.",
+    "degraded": "Partiell data: otillgängliga källor: {sources}",
+    "degraded.source.database": "Databas",
+    "degraded.source.circuitBreaker": "Kretsbrytare",
+    "degraded.source.modelLockouts": "Modellåsningar",
+    "degraded.source.count": "Antal Anslutningar"
+  }
 }

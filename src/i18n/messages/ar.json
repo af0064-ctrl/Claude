@@ -1230,7 +1230,9 @@
     "alwaysVisible": "مرئي دائمًا",
     "groupSeparatorLabel": "فاصل",
     "discovery": "اكتشاف",
-    "discoverySubtitle": "فحص المزودين للوصول المجاني"
+    "discoverySubtitle": "فحص المزودين للوصول المجاني",
+    "resilienceConnections": "مرونة الاتصال",
+    "resilienceConnectionsSubtitle": "التبريد، القاطع، حالة الحظر"
   },
   "webhooks": {
     "title": "خطافات الويب",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "رابط شريك",
     "dismissAriaLabel": "تجاهل"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "مرونة الاتصال",
+    "table": {
+      "status": "الحالة",
+      "provider": "المزوّد",
+      "connectionId": "الاتصال",
+      "authType": "المصادقة",
+      "backoffLevel": "التراجع",
+      "cooldown": "التبريد",
+      "lastError": "آخر خطأ",
+      "lockouts": "الحظر",
+      "healthy": "سليم",
+      "coolingDown": "التبريد",
+      "circuitOpen": "الدائرة مفتوحة",
+      "recovering": "قيد الاستعادة",
+      "degraded": "متدهور",
+      "terminal": "نهائي",
+      "unknown": "غير معروف",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "انتقالات القاطع",
+      "window": "النافذة",
+      "window1h": "ساعة",
+      "window6h": "6 ساعات",
+      "window24h": "24 ساعة",
+      "empty": "لا توجد انتقالات في النافذة المحددة",
+      "currentState": "الحالة الحالية",
+      "state": {
+        "open": "مفتوح",
+        "half_open": "نصف مفتوح",
+        "closed": "مغلق",
+        "degraded": "متدهور"
+      },
+      "reason": {
+        "timeout-elapsed": "انتهت المهلة",
+        "success-recovery": "استعادة بالنجاح",
+        "manual-reset": "إعادة ضبط يدوية",
+        "probe-success": "فحص ناجح",
+        "recovery": "استعادة",
+        "probe-failed": "فحص فاشل"
+      }
+    },
+    "detail": {
+      "title": "تفاصيل الاتصال",
+      "metadata": "البيانات الوصفية",
+      "cooldown": "التبريد",
+      "lastError": "آخر خطأ",
+      "breaker": "قاطع الدائرة",
+      "lockouts": "حظر النماذج",
+      "rateLimitedUntil": "محدود المعدل حتى",
+      "backoffLevel": "مستوى التراجع",
+      "remaining": "المتبقي",
+      "noLockouts": "لا يوجد حظر نشط",
+      "provider": "المزوّد",
+      "id": "المعرّف",
+      "authType": "نوع المصادقة",
+      "priority": "الأولوية",
+      "isActive": "نشط",
+      "errorCode": "رمز الخطأ",
+      "lastErrorAt": "آخر خطأ في",
+      "yes": "نعم",
+      "no": "لا",
+      "close": "إغلاق",
+      "never": "-",
+      "failureCount": "عدد الإخفاقات",
+      "retryAfterMs": "إعادة المحاولة بعد (ms)",
+      "lastFailureKind": "نوع آخر إخفاق"
+    },
+    "empty": {
+      "title": "لا توجد اتصالات",
+      "description": "ستظهر اتصالات المزوّد هنا."
+    },
+    "loading": {
+      "title": "جارٍ التحميل",
+      "description": "جارٍ جلب حالة مرونة الاتصال..."
+    },
+    "summary": {
+      "total": "{count} اتصال",
+      "coolingDown": "{count} في التبريد",
+      "unhealthyBreakers": "{count} قاطع غير مغلق",
+      "capped": "عرض أول 1000"
+    },
+    "pollingNote": "ملاحظة: عرض هذه الصفحة يُفعّل الاستعادة الكسولة للقاطع (فحوصات HALF_OPEN). تحديث كل 30 ثانية.",
+    "retry": "إعادة المحاولة",
+    "pollErrorLocalOnly": "هذه الصفحة متاحة فقط من localhost أو الشبكة المحلية (LOCAL_ONLY).",
+    "pollErrorStopped": "توقف الاستطلاع: رفض الخادم الطلب (404/403).",
+    "pollErrorTransient": "خطأ في جلب البيانات: إعادة المحاولة تلقائيًا.",
+    "degraded": "بيانات جزئية: مصادر غير متاحة: {sources}",
+    "degraded.source.database": "قاعدة البيانات",
+    "degraded.source.circuitBreaker": "قاطع الدائرة",
+    "degraded.source.modelLockouts": "حظر النماذج",
+    "degraded.source.count": "عدد الاتصالات"
+  }
 }

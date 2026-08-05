@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Immer sichtbar",
     "groupSeparatorLabel": "Trennlinie",
     "discovery": "Discovery",
-    "discoverySubtitle": "Anbieter auf kostenlosen Zugang scannen"
+    "discoverySubtitle": "Anbieter auf kostenlosen Zugang scannen",
+    "resilienceConnections": "Verbindungsresilienz",
+    "resilienceConnectionsSubtitle": "Cooldown, Schalter, Sperrstatus"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Partnerlink",
     "dismissAriaLabel": "Schließen"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Verbindungsresilienz",
+    "table": {
+      "status": "Status",
+      "provider": "Anbieter",
+      "connectionId": "Verbindung",
+      "authType": "Auth",
+      "backoffLevel": "Backoff",
+      "cooldown": "Cooldown",
+      "lastError": "Letzter Fehler",
+      "lockouts": "Sperren",
+      "healthy": "Gesund",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Schaltkreis Offen",
+      "recovering": "Erholung",
+      "degraded": "Beeinträchtigt",
+      "terminal": "Terminal",
+      "unknown": "Unbekannt",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Schalterübergänge",
+      "window": "Zeitfenster",
+      "window1h": "1h",
+      "window6h": "6h",
+      "window24h": "24h",
+      "empty": "Keine Übergänge im ausgewählten Zeitfenster",
+      "currentState": "Aktueller Status",
+      "state": {
+        "open": "Offen",
+        "half_open": "Halboffen",
+        "closed": "Geschlossen",
+        "degraded": "Beeinträchtigt"
+      },
+      "reason": {
+        "timeout-elapsed": "Zeitüberschreitung",
+        "success-recovery": "Erholung durch Erfolg",
+        "manual-reset": "Manueller Reset",
+        "probe-success": "Sondierung Erfolgreich",
+        "recovery": "Erholung",
+        "probe-failed": "Sondierung Fehlgeschlagen"
+      }
+    },
+    "detail": {
+      "title": "Verbindungsdetail",
+      "metadata": "Metadaten",
+      "cooldown": "Cooldown",
+      "lastError": "Letzter Fehler",
+      "breaker": "Leistungsschalter",
+      "lockouts": "Modellsperren",
+      "rateLimitedUntil": "Ratenbegrenzt Bis",
+      "backoffLevel": "Backoff-Stufe",
+      "remaining": "Verbleibend",
+      "noLockouts": "Keine aktiven Sperren",
+      "provider": "Anbieter",
+      "id": "ID",
+      "authType": "Auth-Typ",
+      "priority": "Priorität",
+      "isActive": "Aktiv",
+      "errorCode": "Fehlercode",
+      "lastErrorAt": "Letzter Fehler Am",
+      "yes": "Ja",
+      "no": "Nein",
+      "close": "Schließen",
+      "never": "-",
+      "failureCount": "Fehleranzahl",
+      "retryAfterMs": "Erneut Versuchen Nach (ms)",
+      "lastFailureKind": "Letzte Fehlerart"
+    },
+    "empty": {
+      "title": "Keine Verbindungen",
+      "description": "Anbieterverbindungen werden hier angezeigt."
+    },
+    "loading": {
+      "title": "Wird geladen",
+      "description": "Verbindungsresilienzstatus wird abgerufen..."
+    },
+    "summary": {
+      "total": "{count} Verbindungen",
+      "coolingDown": "{count} im Cooldown",
+      "unhealthyBreakers": "{count} Schalter nicht geschlossen",
+      "capped": "zeigt die ersten 1000"
+    },
+    "pollingNote": "Hinweis: Das Aufrufen dieser Seite löst die verzögerte Wiederherstellung des Schalters aus (HALF_OPEN-Sondierungen). Aktualisierung alle 30s.",
+    "retry": "Erneut Versuchen",
+    "pollErrorLocalOnly": "Diese Seite ist nur von localhost oder LAN aus zugänglich (LOCAL_ONLY).",
+    "pollErrorStopped": "Abfrage gestoppt: Der Server hat die Anfrage abgelehnt (404/403).",
+    "pollErrorTransient": "Fehler beim Abrufen der Daten: automatischer erneuter Versuch.",
+    "degraded": "Teildaten: nicht verfügbare Quellen: {sources}",
+    "degraded.source.database": "Datenbank",
+    "degraded.source.circuitBreaker": "Leistungsschalter",
+    "degraded.source.modelLockouts": "Modellsperren",
+    "degraded.source.count": "Verbindungsanzahl"
+  }
 }

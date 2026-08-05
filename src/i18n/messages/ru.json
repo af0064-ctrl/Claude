@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Всегда виден",
     "groupSeparatorLabel": "Разделитель",
     "discovery": "Обнаружение",
-    "discoverySubtitle": "Сканировать провайдеров на наличие бесплатного доступа"
+    "discoverySubtitle": "Сканировать провайдеров на наличие бесплатного доступа",
+    "resilienceConnections": "Устойчивость Соединения",
+    "resilienceConnectionsSubtitle": "Cooldown, автомат защиты, состояние блокировки"
   },
   "webhooks": {
     "title": "Вебхуки",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Партнерская ссылка",
     "dismissAriaLabel": "Закрыть"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Устойчивость Соединения",
+    "table": {
+      "status": "Статус",
+      "provider": "Провайдер",
+      "connectionId": "Соединение",
+      "authType": "Аутентификация",
+      "backoffLevel": "Задержка",
+      "cooldown": "Cooldown",
+      "lastError": "Последняя Ошибка",
+      "lockouts": "Блокировки",
+      "healthy": "Исправно",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Цепь Разомкнута",
+      "recovering": "Восстановление",
+      "degraded": "Деградация",
+      "terminal": "Завершено",
+      "unknown": "Неизвестно",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Переходы Автомата",
+      "window": "Окно",
+      "window1h": "1ч",
+      "window6h": "6ч",
+      "window24h": "24ч",
+      "empty": "Нет переходов в выбранном окне",
+      "currentState": "Текущее Состояние",
+      "state": {
+        "open": "Разомкнуто",
+        "half_open": "Полуразомкнуто",
+        "closed": "Замкнуто",
+        "degraded": "Деградация"
+      },
+      "reason": {
+        "timeout-elapsed": "Тайм-аут Истёк",
+        "success-recovery": "Восстановление по Успеху",
+        "manual-reset": "Ручной Сброс",
+        "probe-success": "Проверка Успешна",
+        "recovery": "Восстановление",
+        "probe-failed": "Проверка Неудачна"
+      }
+    },
+    "detail": {
+      "title": "Детали Соединения",
+      "metadata": "Метаданные",
+      "cooldown": "Cooldown",
+      "lastError": "Последняя Ошибка",
+      "breaker": "Автомат Защиты",
+      "lockouts": "Блокировки Модели",
+      "rateLimitedUntil": "Ограничено по Скорости До",
+      "backoffLevel": "Уровень Задержки",
+      "remaining": "Осталось",
+      "noLockouts": "Нет активных блокировок",
+      "provider": "Провайдер",
+      "id": "ID",
+      "authType": "Тип Аутентификации",
+      "priority": "Приоритет",
+      "isActive": "Активно",
+      "errorCode": "Код Ошибки",
+      "lastErrorAt": "Последняя Ошибка В",
+      "yes": "Да",
+      "no": "Нет",
+      "close": "Закрыть",
+      "never": "-",
+      "failureCount": "Количество Сбоев",
+      "retryAfterMs": "Повтор Через (мс)",
+      "lastFailureKind": "Тип Последнего Сбоя"
+    },
+    "empty": {
+      "title": "Нет соединений",
+      "description": "Соединения провайдера появятся здесь."
+    },
+    "loading": {
+      "title": "Загрузка",
+      "description": "Получение состояния устойчивости соединения..."
+    },
+    "summary": {
+      "total": "{count} соединений",
+      "coolingDown": "{count} в cooldown",
+      "unhealthyBreakers": "{count} автоматов не замкнуто",
+      "capped": "показаны первые 1000"
+    },
+    "pollingNote": "Примечание: просмотр этой страницы запускает отложенное восстановление автомата (проверки HALF_OPEN). Обновление каждые 30с.",
+    "retry": "Повторить",
+    "pollErrorLocalOnly": "Эта страница доступна только с localhost или LAN (LOCAL_ONLY).",
+    "pollErrorStopped": "Опрос остановлен: сервер отклонил запрос (404/403).",
+    "pollErrorTransient": "Ошибка получения данных: автоматический повтор.",
+    "degraded": "Частичные данные: недоступные источники: {sources}",
+    "degraded.source.database": "База Данных",
+    "degraded.source.circuitBreaker": "Автомат Защиты",
+    "degraded.source.modelLockouts": "Блокировки Модели",
+    "degraded.source.count": "Количество Соединений"
+  }
 }

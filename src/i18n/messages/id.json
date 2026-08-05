@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Selalu terlihat",
     "groupSeparatorLabel": "Pemisah",
     "discovery": "Penemuan",
-    "discoverySubtitle": "Pindai penyedia untuk akses gratis"
+    "discoverySubtitle": "Pindai penyedia untuk akses gratis",
+    "resilienceConnections": "Resiliensi Koneksi",
+    "resilienceConnectionsSubtitle": "Cooldown, breaker, status penguncian"
   },
   "webhooks": {
     "title": "Webhook",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Tautan mitra",
     "dismissAriaLabel": "Tutup"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Resiliensi Koneksi",
+    "table": {
+      "status": "Status",
+      "provider": "Penyedia",
+      "connectionId": "Koneksi",
+      "authType": "Auth",
+      "backoffLevel": "Backoff",
+      "cooldown": "Cooldown",
+      "lastError": "Kesalahan Terakhir",
+      "lockouts": "Penguncian",
+      "healthy": "Sehat",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Sirkuit Terbuka",
+      "recovering": "Memulihkan",
+      "degraded": "Terdegradasi",
+      "terminal": "Terminal",
+      "unknown": "Tidak Diketahui",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Transisi Breaker",
+      "window": "Jendela",
+      "window1h": "1j",
+      "window6h": "6j",
+      "window24h": "24j",
+      "empty": "Tidak ada transisi dalam jendela terpilih",
+      "currentState": "Status Saat Ini",
+      "state": {
+        "open": "Terbuka",
+        "half_open": "Setengah Terbuka",
+        "closed": "Tertutup",
+        "degraded": "Terdegradasi"
+      },
+      "reason": {
+        "timeout-elapsed": "Waktu Habis",
+        "success-recovery": "Pemulihan karena Sukses",
+        "manual-reset": "Reset Manual",
+        "probe-success": "Probe Berhasil",
+        "recovery": "Pemulihan",
+        "probe-failed": "Probe Gagal"
+      }
+    },
+    "detail": {
+      "title": "Detail Koneksi",
+      "metadata": "Metadata",
+      "cooldown": "Cooldown",
+      "lastError": "Kesalahan Terakhir",
+      "breaker": "Circuit Breaker",
+      "lockouts": "Penguncian Model",
+      "rateLimitedUntil": "Dibatasi Kecepatan Sampai",
+      "backoffLevel": "Level Backoff",
+      "remaining": "Sisa",
+      "noLockouts": "Tidak ada penguncian aktif",
+      "provider": "Penyedia",
+      "id": "ID",
+      "authType": "Tipe Auth",
+      "priority": "Prioritas",
+      "isActive": "Aktif",
+      "errorCode": "Kode Kesalahan",
+      "lastErrorAt": "Kesalahan Terakhir Pada",
+      "yes": "Ya",
+      "no": "Tidak",
+      "close": "Tutup",
+      "never": "-",
+      "failureCount": "Jumlah Kegagalan",
+      "retryAfterMs": "Coba Lagi Setelah (ms)",
+      "lastFailureKind": "Tipe Kegagalan Terakhir"
+    },
+    "empty": {
+      "title": "Tidak ada koneksi",
+      "description": "Koneksi penyedia akan muncul di sini."
+    },
+    "loading": {
+      "title": "Memuat",
+      "description": "Mengambil status resiliensi koneksi..."
+    },
+    "summary": {
+      "total": "{count} koneksi",
+      "coolingDown": "{count} dalam cooldown",
+      "unhealthyBreakers": "{count} breaker belum tertutup",
+      "capped": "menampilkan 1000 pertama"
+    },
+    "pollingNote": "Catatan: melihat halaman ini memicu pemulihan lambat breaker (probe HALF_OPEN). Diperbarui setiap 30 detik.",
+    "retry": "Coba Lagi",
+    "pollErrorLocalOnly": "Halaman ini hanya dapat diakses dari localhost atau LAN (LOCAL_ONLY).",
+    "pollErrorStopped": "Polling dihentikan: server menolak permintaan (404/403).",
+    "pollErrorTransient": "Kesalahan mengambil data: mencoba lagi secara otomatis.",
+    "degraded": "Data sebagian: sumber tidak tersedia: {sources}",
+    "degraded.source.database": "Basis Data",
+    "degraded.source.circuitBreaker": "Circuit Breaker",
+    "degraded.source.modelLockouts": "Penguncian Model",
+    "degraded.source.count": "Jumlah Koneksi"
+  }
 }

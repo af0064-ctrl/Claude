@@ -1230,7 +1230,9 @@
     "alwaysVisible": "始终可见",
     "groupSeparatorLabel": "隔断",
     "discovery": "发现",
-    "discoverySubtitle": "扫描提供者以获取免费访问"
+    "discoverySubtitle": "扫描提供者以获取免费访问",
+    "resilienceConnections": "连接韧性",
+    "resilienceConnectionsSubtitle": "冷却、断路器、锁定状态"
   },
   "webhooks": {
     "title": "Webhook",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "合作伙伴链接",
     "dismissAriaLabel": "关闭"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "连接韧性",
+    "table": {
+      "status": "状态",
+      "provider": "提供商",
+      "connectionId": "连接",
+      "authType": "认证",
+      "backoffLevel": "退避",
+      "cooldown": "冷却",
+      "lastError": "最近错误",
+      "lockouts": "锁定",
+      "healthy": "健康",
+      "coolingDown": "冷却",
+      "circuitOpen": "断路器开启",
+      "recovering": "恢复中",
+      "degraded": "降级",
+      "terminal": "终止",
+      "unknown": "未知",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "断路器转换",
+      "window": "时间窗口",
+      "window1h": "1小时",
+      "window6h": "6小时",
+      "window24h": "24小时",
+      "empty": "所选窗口内无转换",
+      "currentState": "当前状态",
+      "state": {
+        "open": "开启",
+        "half_open": "半开",
+        "closed": "关闭",
+        "degraded": "降级"
+      },
+      "reason": {
+        "timeout-elapsed": "超时",
+        "success-recovery": "成功恢复",
+        "manual-reset": "手动重置",
+        "probe-success": "探测成功",
+        "recovery": "恢复",
+        "probe-failed": "探测失败"
+      }
+    },
+    "detail": {
+      "title": "连接详情",
+      "metadata": "元数据",
+      "cooldown": "冷却",
+      "lastError": "最近错误",
+      "breaker": "断路器",
+      "lockouts": "模型锁定",
+      "rateLimitedUntil": "限速至",
+      "backoffLevel": "退避级别",
+      "remaining": "剩余",
+      "noLockouts": "无活动锁定",
+      "provider": "提供商",
+      "id": "ID",
+      "authType": "认证类型",
+      "priority": "优先级",
+      "isActive": "启用",
+      "errorCode": "错误代码",
+      "lastErrorAt": "最近错误时间",
+      "yes": "是",
+      "no": "否",
+      "close": "关闭",
+      "never": "-",
+      "failureCount": "失败次数",
+      "retryAfterMs": "重试间隔(ms)",
+      "lastFailureKind": "最近失败类型"
+    },
+    "empty": {
+      "title": "无连接",
+      "description": "提供商连接将显示在此处。"
+    },
+    "loading": {
+      "title": "加载中",
+      "description": "正在获取连接韧性状态..."
+    },
+    "summary": {
+      "total": "{count} 个连接",
+      "coolingDown": "{count} 个冷却中",
+      "unhealthyBreakers": "{count} 个断路器未关闭",
+      "capped": "显示前 1000 个"
+    },
+    "pollingNote": "注意:查看此页面会触发断路器的惰性恢复(HALF_OPEN 探测)。每 30 秒刷新一次。",
+    "retry": "重试",
+    "pollErrorLocalOnly": "此页面仅可从 localhost 或局域网访问 (LOCAL_ONLY)。",
+    "pollErrorStopped": "轮询已停止:服务器拒绝了请求 (404/403)。",
+    "pollErrorTransient": "获取数据出错:将自动重试。",
+    "degraded": "部分数据:不可用的数据源: {sources}",
+    "degraded.source.database": "数据库",
+    "degraded.source.circuitBreaker": "断路器",
+    "degraded.source.modelLockouts": "模型锁定",
+    "degraded.source.count": "连接数"
+  }
 }

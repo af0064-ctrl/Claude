@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Toujours visible",
     "groupSeparatorLabel": "Séparateur",
     "discovery": "Découverte",
-    "discoverySubtitle": "Analyser les fournisseurs pour un accès gratuit"
+    "discoverySubtitle": "Analyser les fournisseurs pour un accès gratuit",
+    "resilienceConnections": "Résilience de Connexion",
+    "resilienceConnectionsSubtitle": "Cooldown, disjoncteur, état de blocage"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Lien partenaire",
     "dismissAriaLabel": "Ignorer"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Résilience de Connexion",
+    "table": {
+      "status": "Statut",
+      "provider": "Fournisseur",
+      "connectionId": "Connexion",
+      "authType": "Authentification",
+      "backoffLevel": "Backoff",
+      "cooldown": "Cooldown",
+      "lastError": "Dernière Erreur",
+      "lockouts": "Blocages",
+      "healthy": "Sain",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Circuit Ouvert",
+      "recovering": "Récupération",
+      "degraded": "Dégradé",
+      "terminal": "Terminal",
+      "unknown": "Inconnu",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Transitions du Disjoncteur",
+      "window": "Fenêtre",
+      "window1h": "1h",
+      "window6h": "6h",
+      "window24h": "24h",
+      "empty": "Aucune transition dans la fenêtre sélectionnée",
+      "currentState": "État Actuel",
+      "state": {
+        "open": "Ouvert",
+        "half_open": "Semi-ouvert",
+        "closed": "Fermé",
+        "degraded": "Dégradé"
+      },
+      "reason": {
+        "timeout-elapsed": "Délai Dépassé",
+        "success-recovery": "Récupération par Succès",
+        "manual-reset": "Réinitialisation Manuelle",
+        "probe-success": "Sondage Réussi",
+        "recovery": "Récupération",
+        "probe-failed": "Sondage Échoué"
+      }
+    },
+    "detail": {
+      "title": "Détail de la Connexion",
+      "metadata": "Métadonnées",
+      "cooldown": "Cooldown",
+      "lastError": "Dernière Erreur",
+      "breaker": "Disjoncteur",
+      "lockouts": "Blocages de Modèle",
+      "rateLimitedUntil": "Limité en Débit Jusqu'à",
+      "backoffLevel": "Niveau de Backoff",
+      "remaining": "Restant",
+      "noLockouts": "Aucun blocage actif",
+      "provider": "Fournisseur",
+      "id": "ID",
+      "authType": "Type d'Authentification",
+      "priority": "Priorité",
+      "isActive": "Actif",
+      "errorCode": "Code d'Erreur",
+      "lastErrorAt": "Dernière Erreur À",
+      "yes": "Oui",
+      "no": "Non",
+      "close": "Fermer",
+      "never": "-",
+      "failureCount": "Nombre d'Échecs",
+      "retryAfterMs": "Réessayer Après (ms)",
+      "lastFailureKind": "Dernier Type d'Échec"
+    },
+    "empty": {
+      "title": "Aucune connexion",
+      "description": "Les connexions du fournisseur apparaîtront ici."
+    },
+    "loading": {
+      "title": "Chargement",
+      "description": "Récupération de l'état de résilience de la connexion..."
+    },
+    "summary": {
+      "total": "{count} connexions",
+      "coolingDown": "{count} en cooldown",
+      "unhealthyBreakers": "{count} disjoncteurs non fermés",
+      "capped": "affichage des 1000 premiers"
+    },
+    "pollingNote": "Remarque : consulter cette page déclenche la récupération paresseuse du disjoncteur (sondages HALF_OPEN). Actualisation toutes les 30s.",
+    "retry": "Réessayer",
+    "pollErrorLocalOnly": "Cette page n'est accessible que depuis localhost ou le LAN (LOCAL_ONLY).",
+    "pollErrorStopped": "Sondage arrêté : le serveur a rejeté la requête (404/403).",
+    "pollErrorTransient": "Erreur lors de la récupération des données : nouvelle tentative automatique.",
+    "degraded": "Données partielles : sources indisponibles : {sources}",
+    "degraded.source.database": "Base de Données",
+    "degraded.source.circuitBreaker": "Disjoncteur",
+    "degraded.source.modelLockouts": "Blocages de Modèle",
+    "degraded.source.count": "Nombre de Connexions"
+  }
 }

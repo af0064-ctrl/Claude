@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Aina näkyvissä",
     "groupSeparatorLabel": "Erotin",
     "discovery": "Löytäminen",
-    "discoverySubtitle": "Skannaa tarjoajat ilmaisen pääsyn varalta"
+    "discoverySubtitle": "Skannaa tarjoajat ilmaisen pääsyn varalta",
+    "resilienceConnections": "Yhteyden Kestävyys",
+    "resilienceConnectionsSubtitle": "Jäähdytys, katkaisija, lukitustila"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Kumppanilinkki",
     "dismissAriaLabel": "Sulje"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Yhteyden Kestävyys",
+    "table": {
+      "status": "Tila",
+      "provider": "Palveluntarjoaja",
+      "connectionId": "Yhteys",
+      "authType": "Todennus",
+      "backoffLevel": "Peruutus",
+      "cooldown": "Jäähdytys",
+      "lastError": "Viimeisin Virhe",
+      "lockouts": "Lukitukset",
+      "healthy": "Terve",
+      "coolingDown": "Jäähdytys",
+      "circuitOpen": "Piiri Auki",
+      "recovering": "Palautuu",
+      "degraded": "Heikentynyt",
+      "terminal": "Pääte",
+      "unknown": "Tuntematon",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Katkaisijan Siirtymät",
+      "window": "Ikkuna",
+      "window1h": "1h",
+      "window6h": "6h",
+      "window24h": "24h",
+      "empty": "Ei siirtymiä valitussa ikkunassa",
+      "currentState": "Nykyinen Tila",
+      "state": {
+        "open": "Auki",
+        "half_open": "Puoliauki",
+        "closed": "Suljettu",
+        "degraded": "Heikentynyt"
+      },
+      "reason": {
+        "timeout-elapsed": "Aikakatkaisu",
+        "success-recovery": "Palautuminen Onnistumisesta",
+        "manual-reset": "Manuaalinen Nollaus",
+        "probe-success": "Koettelu Onnistui",
+        "recovery": "Palautuminen",
+        "probe-failed": "Koettelu Epäonnistui"
+      }
+    },
+    "detail": {
+      "title": "Yhteyden Tiedot",
+      "metadata": "Metatiedot",
+      "cooldown": "Jäähdytys",
+      "lastError": "Viimeisin Virhe",
+      "breaker": "Piirikatkaisija",
+      "lockouts": "Mallilukitukset",
+      "rateLimitedUntil": "Nopeusrajoitettu Asti",
+      "backoffLevel": "Peruutustaso",
+      "remaining": "Jäljellä",
+      "noLockouts": "Ei aktiivisia lukituksia",
+      "provider": "Palveluntarjoaja",
+      "id": "ID",
+      "authType": "Todennustyyppi",
+      "priority": "Prioriteetti",
+      "isActive": "Aktiivinen",
+      "errorCode": "Virhekoodi",
+      "lastErrorAt": "Viimeisin Virhe Klo",
+      "yes": "Kyllä",
+      "no": "Ei",
+      "close": "Sulje",
+      "never": "-",
+      "failureCount": "Virheiden Määrä",
+      "retryAfterMs": "Yritä Uudelleen (ms)",
+      "lastFailureKind": "Viimeisin Virhetyyppi"
+    },
+    "empty": {
+      "title": "Ei yhteyksiä",
+      "description": "Palveluntarjoajan yhteydet näkyvät täällä."
+    },
+    "loading": {
+      "title": "Ladataan",
+      "description": "Haetaan yhteyden kestävyystilaa..."
+    },
+    "summary": {
+      "total": "{count} yhteyttä",
+      "coolingDown": "{count} jäähdytyksessä",
+      "unhealthyBreakers": "{count} katkaisijaa ei suljettu",
+      "capped": "näytetään ensimmäiset 1000"
+    },
+    "pollingNote": "Huom: tämän sivun katselu käynnistää katkaisijan laiskan palautumisen (HALF_OPEN-koettelut). Päivitys 30s välein.",
+    "retry": "Yritä Uudelleen",
+    "pollErrorLocalOnly": "Tämä sivu on käytettävissä vain localhostista tai LAN-verkosta (LOCAL_ONLY).",
+    "pollErrorStopped": "Kysely pysäytetty: palvelin hylkäsi pyynnön (404/403).",
+    "pollErrorTransient": "Virhe tietojen haussa: yritetään automaattisesti uudelleen.",
+    "degraded": "Osittaiset tiedot: käyttökelvottomat lähteet: {sources}",
+    "degraded.source.database": "Tietokanta",
+    "degraded.source.circuitBreaker": "Piirikatkaisija",
+    "degraded.source.modelLockouts": "Mallilukitukset",
+    "degraded.source.count": "Yhteyksien Määrä"
+  }
 }

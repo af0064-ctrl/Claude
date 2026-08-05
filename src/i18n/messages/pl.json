@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Zawsze widoczne",
     "groupSeparatorLabel": "Separator",
     "discovery": "Discovery",
-    "discoverySubtitle": "Skanowanie providers w celu wyszukania darmowego dostępu"
+    "discoverySubtitle": "Skanowanie providers w celu wyszukania darmowego dostępu",
+    "resilienceConnections": "Odporność Połączenia",
+    "resilienceConnectionsSubtitle": "Cooldown, wyłącznik, stan blokady"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -12207,5 +12209,99 @@
     "partnerLinkNote": "Link partnerski",
     "dismissAriaLabel": "Odrzuć"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Odporność Połączenia",
+    "table": {
+      "status": "Status",
+      "provider": "Dostawca",
+      "connectionId": "Połączenie",
+      "authType": "Uwierzytelnianie",
+      "backoffLevel": "Wycofanie",
+      "cooldown": "Cooldown",
+      "lastError": "Ostatni Błąd",
+      "lockouts": "Blokady",
+      "healthy": "Sprawny",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Obwód Otwarty",
+      "recovering": "Odzyskiwanie",
+      "degraded": "Zdegradowany",
+      "terminal": "Terminal",
+      "unknown": "Nieznany",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Przejścia Wyłącznika",
+      "window": "Okno",
+      "window1h": "1godz",
+      "window6h": "6godz",
+      "window24h": "24godz",
+      "empty": "Brak przejść w wybranym oknie",
+      "currentState": "Aktualny Stan",
+      "state": {
+        "open": "Otwarty",
+        "half_open": "Półotwarty",
+        "closed": "Zamknięty",
+        "degraded": "Zdegradowany"
+      },
+      "reason": {
+        "timeout-elapsed": "Upłynął Limit Czasu",
+        "success-recovery": "Odzyskanie po Sukcesie",
+        "manual-reset": "Ręczny Reset",
+        "probe-success": "Sonda Udana",
+        "recovery": "Odzyskiwanie",
+        "probe-failed": "Sonda Nieudana"
+      }
+    },
+    "detail": {
+      "title": "Szczegóły Połączenia",
+      "metadata": "Metadane",
+      "cooldown": "Cooldown",
+      "lastError": "Ostatni Błąd",
+      "breaker": "Wyłącznik",
+      "lockouts": "Blokady Modelu",
+      "rateLimitedUntil": "Ograniczono Do",
+      "backoffLevel": "Poziom Wycofania",
+      "remaining": "Pozostało",
+      "noLockouts": "Brak aktywnych blokad",
+      "provider": "Dostawca",
+      "id": "ID",
+      "authType": "Typ Uwierzytelniania",
+      "priority": "Priorytet",
+      "isActive": "Aktywny",
+      "errorCode": "Kod Błędu",
+      "lastErrorAt": "Ostatni Błąd O",
+      "yes": "Tak",
+      "no": "Nie",
+      "close": "Zamknij",
+      "never": "-",
+      "failureCount": "Liczba Błędów",
+      "retryAfterMs": "Ponów Po (ms)",
+      "lastFailureKind": "Ostatni Typ Błędu"
+    },
+    "empty": {
+      "title": "Brak połączeń",
+      "description": "Połączenia dostawcy pojawią się tutaj."
+    },
+    "loading": {
+      "title": "Ładowanie",
+      "description": "Pobieranie stanu odporności połączenia..."
+    },
+    "summary": {
+      "total": "{count} połączeń",
+      "coolingDown": "{count} w cooldownie",
+      "unhealthyBreakers": "{count} wyłączników niezamkniętych",
+      "capped": "wyświetlanie pierwszych 1000"
+    },
+    "pollingNote": "Uwaga: wyświetlenie tej strony uruchamia leniwe odzyskiwanie wyłącznika (sondy HALF_OPEN). Odświeżanie co 30s.",
+    "retry": "Ponów",
+    "pollErrorLocalOnly": "Ta strona jest dostępna tylko z localhost lub LAN (LOCAL_ONLY).",
+    "pollErrorStopped": "Odpytywanie zatrzymane: serwer odrzucił żądanie (404/403).",
+    "pollErrorTransient": "Błąd pobierania danych: automatyczne ponowienie.",
+    "degraded": "Dane częściowe: niedostępne źródła: {sources}",
+    "degraded.source.database": "Baza Danych",
+    "degraded.source.circuitBreaker": "Wyłącznik",
+    "degraded.source.modelLockouts": "Blokady Modelu",
+    "degraded.source.count": "Liczba Połączeń"
+  }
 }

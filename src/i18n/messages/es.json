@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Always visible",
     "groupSeparatorLabel": "Separator",
     "discovery": "Discovery",
-    "discoverySubtitle": "Scan providers for free access"
+    "discoverySubtitle": "Scan providers for free access",
+    "resilienceConnections": "Resiliencia de Conexión",
+    "resilienceConnectionsSubtitle": "Cooldown, disyuntor, estado de bloqueo"
   },
   "webhooks": {
     "title": "Ganchos web",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Enlace de socio",
     "dismissAriaLabel": "Descartar"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Resiliencia de Conexión",
+    "table": {
+      "status": "Estado",
+      "provider": "Proveedor",
+      "connectionId": "Conexión",
+      "authType": "Auth",
+      "backoffLevel": "Backoff",
+      "cooldown": "Cooldown",
+      "lastError": "Último Error",
+      "lockouts": "Bloqueos",
+      "healthy": "Saludable",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Circuito Abierto",
+      "recovering": "Recuperando",
+      "degraded": "Degradado",
+      "terminal": "Terminal",
+      "unknown": "Desconocido",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Transiciones del Disyuntor",
+      "window": "Ventana",
+      "window1h": "1h",
+      "window6h": "6h",
+      "window24h": "24h",
+      "empty": "Sin transiciones en la ventana seleccionada",
+      "currentState": "Estado Actual",
+      "state": {
+        "open": "Abierto",
+        "half_open": "Semiabierto",
+        "closed": "Cerrado",
+        "degraded": "Degradado"
+      },
+      "reason": {
+        "timeout-elapsed": "Tiempo Límite Agotado",
+        "success-recovery": "Recuperación por Éxito",
+        "manual-reset": "Reinicio Manual",
+        "probe-success": "Sondeo Exitoso",
+        "recovery": "Recuperación",
+        "probe-failed": "Sondeo Fallido"
+      }
+    },
+    "detail": {
+      "title": "Detalle de Conexión",
+      "metadata": "Metadatos",
+      "cooldown": "Cooldown",
+      "lastError": "Último Error",
+      "breaker": "Disyuntor",
+      "lockouts": "Bloqueos de Modelo",
+      "rateLimitedUntil": "Limitado por Tasa Hasta",
+      "backoffLevel": "Nivel de Backoff",
+      "remaining": "Restante",
+      "noLockouts": "Sin bloqueos activos",
+      "provider": "Proveedor",
+      "id": "ID",
+      "authType": "Tipo de Autenticación",
+      "priority": "Prioridad",
+      "isActive": "Activo",
+      "errorCode": "Código de Error",
+      "lastErrorAt": "Último Error En",
+      "yes": "Sí",
+      "no": "No",
+      "close": "Cerrar",
+      "never": "-",
+      "failureCount": "Cantidad de Fallos",
+      "retryAfterMs": "Reintentar Después (ms)",
+      "lastFailureKind": "Último Tipo de Fallo"
+    },
+    "empty": {
+      "title": "Sin conexiones",
+      "description": "Las conexiones del proveedor aparecerán aquí."
+    },
+    "loading": {
+      "title": "Cargando",
+      "description": "Obteniendo estado de resiliencia de la conexión..."
+    },
+    "summary": {
+      "total": "{count} conexiones",
+      "coolingDown": "{count} en cooldown",
+      "unhealthyBreakers": "{count} disyuntores no cerrados",
+      "capped": "mostrando los primeros 1000"
+    },
+    "pollingNote": "Nota: ver esta página activa la recuperación perezosa del disyuntor (sondeos HALF_OPEN). Actualización cada 30s.",
+    "retry": "Reintentar",
+    "pollErrorLocalOnly": "Esta página solo es accesible desde localhost o LAN (LOCAL_ONLY).",
+    "pollErrorStopped": "Sondeo detenido: el servidor rechazó la solicitud (404/403).",
+    "pollErrorTransient": "Error al obtener datos: reintentando automáticamente.",
+    "degraded": "Datos parciales: fuentes no disponibles: {sources}",
+    "degraded.source.database": "Base de Datos",
+    "degraded.source.circuitBreaker": "Disyuntor",
+    "degraded.source.modelLockouts": "Bloqueos de Modelo",
+    "degraded.source.count": "Cantidad de Conexiones"
+  }
 }

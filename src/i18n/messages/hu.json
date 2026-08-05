@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Mindig látható",
     "groupSeparatorLabel": "Elválasztó",
     "discovery": "Felfedezés",
-    "discoverySubtitle": "Szolgáltatók vizsgálata ingyenes hozzáférésért"
+    "discoverySubtitle": "Szolgáltatók vizsgálata ingyenes hozzáférésért",
+    "resilienceConnections": "Kapcsolat Ellenálló Képesség",
+    "resilienceConnectionsSubtitle": "Cooldown, megszakító, zárolási állapot"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Partnerhivatkozás",
     "dismissAriaLabel": "Elvetés"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Kapcsolat Ellenálló Képesség",
+    "table": {
+      "status": "Állapot",
+      "provider": "Szolgáltató",
+      "connectionId": "Kapcsolat",
+      "authType": "Hitelesítés",
+      "backoffLevel": "Visszalépés",
+      "cooldown": "Cooldown",
+      "lastError": "Utolsó Hiba",
+      "lockouts": "Zárolások",
+      "healthy": "Egészséges",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Áramkör Nyitva",
+      "recovering": "Helyreáll",
+      "degraded": "Leromlott",
+      "terminal": "Terminál",
+      "unknown": "Ismeretlen",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Megszakító Átmenetek",
+      "window": "Ablak",
+      "window1h": "1ó",
+      "window6h": "6ó",
+      "window24h": "24ó",
+      "empty": "Nincs átmenet a kiválasztott ablakban",
+      "currentState": "Jelenlegi Állapot",
+      "state": {
+        "open": "Nyitva",
+        "half_open": "Félig Nyitva",
+        "closed": "Zárva",
+        "degraded": "Leromlott"
+      },
+      "reason": {
+        "timeout-elapsed": "Időtúllépés",
+        "success-recovery": "Helyreállás Sikerrel",
+        "manual-reset": "Kézi Visszaállítás",
+        "probe-success": "Próba Sikeres",
+        "recovery": "Helyreállás",
+        "probe-failed": "Próba Sikertelen"
+      }
+    },
+    "detail": {
+      "title": "Kapcsolat Részletei",
+      "metadata": "Metaadatok",
+      "cooldown": "Cooldown",
+      "lastError": "Utolsó Hiba",
+      "breaker": "Megszakító",
+      "lockouts": "Modell Zárolások",
+      "rateLimitedUntil": "Sebességkorlátozva Eddig",
+      "backoffLevel": "Visszalépési Szint",
+      "remaining": "Hátralévő",
+      "noLockouts": "Nincs aktív zárolás",
+      "provider": "Szolgáltató",
+      "id": "ID",
+      "authType": "Hitelesítés Típusa",
+      "priority": "Prioritás",
+      "isActive": "Aktív",
+      "errorCode": "Hibakód",
+      "lastErrorAt": "Utolsó Hiba Ekkor",
+      "yes": "Igen",
+      "no": "Nem",
+      "close": "Bezárás",
+      "never": "-",
+      "failureCount": "Hibák Száma",
+      "retryAfterMs": "Újrapróbálás Után (ms)",
+      "lastFailureKind": "Utolsó Hiba Típusa"
+    },
+    "empty": {
+      "title": "Nincs kapcsolat",
+      "description": "A szolgáltató kapcsolatai itt jelennek meg."
+    },
+    "loading": {
+      "title": "Betöltés",
+      "description": "Kapcsolat ellenálló képesség állapotának lekérése..."
+    },
+    "summary": {
+      "total": "{count} kapcsolat",
+      "coolingDown": "{count} cooldownban",
+      "unhealthyBreakers": "{count} megszakító nincs zárva",
+      "capped": "az első 1000 megjelenítése"
+    },
+    "pollingNote": "Megjegyzés: az oldal megtekintése aktiválja a megszakító lusta helyreállítását (HALF_OPEN próbák). Frissítés 30 másodpercenként.",
+    "retry": "Újrapróbálás",
+    "pollErrorLocalOnly": "Ez az oldal csak localhostról vagy LAN-ról érhető el (LOCAL_ONLY).",
+    "pollErrorStopped": "Lekérdezés leállítva: a szerver elutasította a kérést (404/403).",
+    "pollErrorTransient": "Hiba az adatok lekérésekor: automatikus újrapróbálkozás.",
+    "degraded": "Részleges adatok: nem elérhető források: {sources}",
+    "degraded.source.database": "Adatbázis",
+    "degraded.source.circuitBreaker": "Megszakító",
+    "degraded.source.modelLockouts": "Modell Zárolások",
+    "degraded.source.count": "Kapcsolatok Száma"
+  }
 }

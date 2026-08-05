@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Palaging nakikita",
     "groupSeparatorLabel": "Separator",
     "discovery": "Pagtuklas",
-    "discoverySubtitle": "I-scan ang mga provider para sa libreng access"
+    "discoverySubtitle": "I-scan ang mga provider para sa libreng access",
+    "resilienceConnections": "Katatagan ng Koneksyon",
+    "resilienceConnectionsSubtitle": "Cooldown, breaker, katayuan ng lockout"
   },
   "webhooks": {
     "title": "Mga Webhook",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Link ng kasosyo",
     "dismissAriaLabel": "I-dismiss"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Katatagan ng Koneksyon",
+    "table": {
+      "status": "Katayuan",
+      "provider": "Provider",
+      "connectionId": "Koneksyon",
+      "authType": "Pagpapatunay",
+      "backoffLevel": "Backoff",
+      "cooldown": "Cooldown",
+      "lastError": "Huling Error",
+      "lockouts": "Mga Lockout",
+      "healthy": "Malusog",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Bukas ang Circuit",
+      "recovering": "Gumagaling",
+      "degraded": "Bumaba ang Kalidad",
+      "terminal": "Terminal",
+      "unknown": "Hindi Alam",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Mga Paglipat ng Breaker",
+      "window": "Window",
+      "window1h": "1oras",
+      "window6h": "6oras",
+      "window24h": "24oras",
+      "empty": "Walang paglipat sa napiling window",
+      "currentState": "Kasalukuyang Katayuan",
+      "state": {
+        "open": "Bukas",
+        "half_open": "Kalahating Bukas",
+        "closed": "Sarado",
+        "degraded": "Bumaba ang Kalidad"
+      },
+      "reason": {
+        "timeout-elapsed": "Naubos ang Oras",
+        "success-recovery": "Paggaling sa Tagumpay",
+        "manual-reset": "Manual na Pag-reset",
+        "probe-success": "Matagumpay ang Probe",
+        "recovery": "Paggaling",
+        "probe-failed": "Nabigo ang Probe"
+      }
+    },
+    "detail": {
+      "title": "Detalye ng Koneksyon",
+      "metadata": "Metadata",
+      "cooldown": "Cooldown",
+      "lastError": "Huling Error",
+      "breaker": "Circuit Breaker",
+      "lockouts": "Mga Lockout ng Modelo",
+      "rateLimitedUntil": "May Limitasyon sa Bilis Hanggang",
+      "backoffLevel": "Antas ng Backoff",
+      "remaining": "Natitira",
+      "noLockouts": "Walang aktibong lockout",
+      "provider": "Provider",
+      "id": "ID",
+      "authType": "Uri ng Pagpapatunay",
+      "priority": "Priyoridad",
+      "isActive": "Aktibo",
+      "errorCode": "Error Code",
+      "lastErrorAt": "Huling Error Noong",
+      "yes": "Oo",
+      "no": "Hindi",
+      "close": "Isara",
+      "never": "-",
+      "failureCount": "Bilang ng Kabiguan",
+      "retryAfterMs": "Subukan Muli Pagkatapos ng (ms)",
+      "lastFailureKind": "Huling Uri ng Kabiguan"
+    },
+    "empty": {
+      "title": "Walang koneksyon",
+      "description": "Ang mga koneksyon ng provider ay lalabas dito."
+    },
+    "loading": {
+      "title": "Naglo-load",
+      "description": "Kinukuha ang katayuan ng katatagan ng koneksyon..."
+    },
+    "summary": {
+      "total": "{count} koneksyon",
+      "coolingDown": "{count} nasa cooldown",
+      "unhealthyBreakers": "{count} breaker ang hindi sarado",
+      "capped": "ipinapakita ang unang 1000"
+    },
+    "pollingNote": "Paalala: ang pagtingin sa pahinang ito ay magpapasimula ng tamad na paggaling ng breaker (HALF_OPEN probes). Nagre-refresh bawat 30s.",
+    "retry": "Subukan Muli",
+    "pollErrorLocalOnly": "Ang pahinang ito ay maa-access lamang mula sa localhost o LAN (LOCAL_ONLY).",
+    "pollErrorStopped": "Huminto ang polling: tinanggihan ng server ang kahilingan (404/403).",
+    "pollErrorTransient": "Error sa pagkuha ng data: awtomatikong sinusubukan muli.",
+    "degraded": "Bahagyang data: hindi available na pinagmulan: {sources}",
+    "degraded.source.database": "Database",
+    "degraded.source.circuitBreaker": "Circuit Breaker",
+    "degraded.source.modelLockouts": "Mga Lockout ng Modelo",
+    "degraded.source.count": "Bilang ng Koneksyon"
+  }
 }

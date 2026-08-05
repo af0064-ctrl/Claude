@@ -1230,7 +1230,9 @@
     "alwaysVisible": "Vždy viditeľné",
     "groupSeparatorLabel": "Oddeľovač",
     "discovery": "Zisťovanie",
-    "discoverySubtitle": "Skenovať poskytovateľov na bezplatný prístup"
+    "discoverySubtitle": "Skenovať poskytovateľov na bezplatný prístup",
+    "resilienceConnections": "Odolnosť Pripojenia",
+    "resilienceConnectionsSubtitle": "Cooldown, istič, stav uzamknutia"
   },
   "webhooks": {
     "title": "Webhooky",
@@ -12185,5 +12187,99 @@
     "partnerLinkNote": "Partnerský odkaz",
     "dismissAriaLabel": "Zavrieť"
   },
-  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally."
+  "featureFlagExposeFunctionalGatewayMirrorsDescription": "__MISSING__:Advertise <gateway-alias>/<model> mirror ids on /v1/models for models whose canonical owner has no active credential but a passthrough gateway with an active credential routes them. Warning: adds catalog entries for all clients when enabled globally.",
+  "resilienceConnections": {
+    "title": "Odolnosť Pripojenia",
+    "table": {
+      "status": "Stav",
+      "provider": "Poskytovateľ",
+      "connectionId": "Pripojenie",
+      "authType": "Autentifikácia",
+      "backoffLevel": "Odklad",
+      "cooldown": "Cooldown",
+      "lastError": "Posledná Chyba",
+      "lockouts": "Uzamknutia",
+      "healthy": "Zdravé",
+      "coolingDown": "Cooldown",
+      "circuitOpen": "Obvod Otvorený",
+      "recovering": "Zotavuje sa",
+      "degraded": "Zhoršené",
+      "terminal": "Terminál",
+      "unknown": "Neznáme",
+      "never": "-"
+    },
+    "timeline": {
+      "title": "Prechody Ističa",
+      "window": "Okno",
+      "window1h": "1h",
+      "window6h": "6h",
+      "window24h": "24h",
+      "empty": "Žiadne prechody vo vybranom okne",
+      "currentState": "Aktuálny Stav",
+      "state": {
+        "open": "Otvorené",
+        "half_open": "Polootvorené",
+        "closed": "Zatvorené",
+        "degraded": "Zhoršené"
+      },
+      "reason": {
+        "timeout-elapsed": "Časový Limit Vypršal",
+        "success-recovery": "Zotavenie Úspechom",
+        "manual-reset": "Ručný Reset",
+        "probe-success": "Sonda Úspešná",
+        "recovery": "Zotavenie",
+        "probe-failed": "Sonda Zlyhala"
+      }
+    },
+    "detail": {
+      "title": "Detail Pripojenia",
+      "metadata": "Metadáta",
+      "cooldown": "Cooldown",
+      "lastError": "Posledná Chyba",
+      "breaker": "Istič",
+      "lockouts": "Uzamknutia Modelu",
+      "rateLimitedUntil": "Obmedzené Do",
+      "backoffLevel": "Úroveň Odkladu",
+      "remaining": "Zostáva",
+      "noLockouts": "Žiadne aktívne uzamknutia",
+      "provider": "Poskytovateľ",
+      "id": "ID",
+      "authType": "Typ Autentifikácie",
+      "priority": "Priorita",
+      "isActive": "Aktívne",
+      "errorCode": "Kód Chyby",
+      "lastErrorAt": "Posledná Chyba O",
+      "yes": "Áno",
+      "no": "Nie",
+      "close": "Zavrieť",
+      "never": "-",
+      "failureCount": "Počet Zlyhaní",
+      "retryAfterMs": "Skúsiť Znova Po (ms)",
+      "lastFailureKind": "Posledný Typ Zlyhania"
+    },
+    "empty": {
+      "title": "Žiadne pripojenia",
+      "description": "Pripojenia poskytovateľa sa zobrazia tu."
+    },
+    "loading": {
+      "title": "Načítava sa",
+      "description": "Načítava sa stav odolnosti pripojenia..."
+    },
+    "summary": {
+      "total": "{count} pripojení",
+      "coolingDown": "{count} v cooldowne",
+      "unhealthyBreakers": "{count} ističov nezatvorených",
+      "capped": "zobrazených prvých 1000"
+    },
+    "pollingNote": "Poznámka: zobrazenie tejto stránky spúšťa lenivé zotavenie ističa (sondy HALF_OPEN). Aktualizácia každých 30 s.",
+    "retry": "Skúsiť Znova",
+    "pollErrorLocalOnly": "Táto stránka je prístupná iba z localhost alebo LAN (LOCAL_ONLY).",
+    "pollErrorStopped": "Dopytovanie zastavené: server odmietol požiadavku (404/403).",
+    "pollErrorTransient": "Chyba pri načítaní dát: automatické opakovanie.",
+    "degraded": "Čiastočné dáta: nedostupné zdroje: {sources}",
+    "degraded.source.database": "Databáza",
+    "degraded.source.circuitBreaker": "Istič",
+    "degraded.source.modelLockouts": "Uzamknutia Modelu",
+    "degraded.source.count": "Počet Pripojení"
+  }
 }
