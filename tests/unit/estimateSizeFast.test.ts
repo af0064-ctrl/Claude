@@ -1,9 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-const { estimateSizeFast, isSmallEnoughForSemanticCache } = await import(
-  "../../open-sse/utils/estimateSize.ts"
-);
+const { estimateSizeFast, isSmallEnoughForSemanticCache } =
+  await import("../../open-sse/utils/estimateSize.ts");
 
 test("estimateSizeFast returns 0 for null/undefined", () => {
   assert.equal(estimateSizeFast(null), 0);
@@ -63,6 +62,31 @@ test("estimateSizeFast early-exits at 262144 bytes (256KB)", () => {
   const bigStr = "x".repeat(300_000);
   const result = estimateSizeFast(bigStr);
   assert.ok(result >= 262144, `Should early-exit, got ${result}`);
+});
+
+test("estimateSizeFast accepts a custom earlyExitAt so a raised caller threshold is actually reachable", () => {
+  // Bug: chatCore/logTruncation.ts's truncateForLog() compares estimateSizeFast's
+  // result against a configurable threshold (getChatLogMaxBodyBytes(), default
+  // 1MB) — but estimateSizeFast's own early-exit was hardcoded at 256KB. Many
+  // small chunks (the realistic shape — a message array) stop accumulating the
+  // instant the running total crosses the early-exit point, so with the old
+  // hardcoded 256KB exit the reported size could never signal "still under a
+  // 1MB threshold" for an object whose true size sits between the two.
+  const chunks = Array.from({ length: 6000 }, () => "x".repeat(100)); // ~600KB true size
+  const defaultResult = estimateSizeFast(chunks);
+  assert.ok(
+    defaultResult <= 262144 + 100,
+    `default earlyExitAt should stop accumulating around 256KB, got ${defaultResult}`
+  );
+  const oneMbResult = estimateSizeFast(chunks, 1024 * 1024);
+  assert.ok(
+    oneMbResult > 262144,
+    `with a 1MB earlyExitAt, ~600KB of chunks must be measurable past the old 256KB cap, got ${oneMbResult}`
+  );
+  assert.ok(
+    oneMbResult <= 1024 * 1024 + 100,
+    `should not exceed the true ~600KB size, got ${oneMbResult}`
+  );
 });
 
 test("estimateSizeFast handles mixed object/array nesting", () => {
