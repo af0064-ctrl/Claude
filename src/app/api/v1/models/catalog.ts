@@ -1332,7 +1332,8 @@ async function buildUnifiedModelsResponseCore(
           continue;
         }
 
-        const alias = providerIdToAlias[canonicalProviderId] || providerKey;
+        const prefix = providerIdToPrefix[providerKey] ?? providerIdToPrefix[canonicalProviderId];
+        const alias = prefix || providerIdToAlias[canonicalProviderId] || providerKey;
         if (
           !activeAliases.has(alias) &&
           !activeAliases.has(canonicalProviderId) &&
@@ -1374,6 +1375,7 @@ async function buildUnifiedModelsResponseCore(
         if (
           includeCanonical &&
           canonicalProviderId !== alias &&
+          !prefix &&
           !isNoAuthProviderKey(canonicalProviderId) &&
           prefixRoutesToProvider(canonicalProviderId, canonicalProviderId)
         ) {
