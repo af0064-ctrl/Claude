@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Button, Badge, Input, Modal, Select } from "@/shared/components";
 import { CC_COMPATIBLE_DEFAULT_CHAT_PATH } from "../../providerDetailConstants";
+import { providerText } from "../../providerPageHelpers";
 interface EditCompatibleNodeModalNode {
   id?: string;
   name?: string;
@@ -133,7 +134,10 @@ export default function EditCompatibleNodeModal({
         method: data.method ?? null,
       });
     } catch {
-      setValidationResult({ valid: false, error: "Network error" });
+      setValidationResult({
+        valid: false,
+        error: providerText(t, "networkError", "Network error"),
+      });
     } finally {
       setValidating(false);
     }
