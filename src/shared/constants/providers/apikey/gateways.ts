@@ -234,7 +234,8 @@ export const APIKEY_PROVIDERS_GATEWAYS = {
     textIcon: "DA",
     website: "https://inference.dahl.global",
     hasFree: true,
-    freeNote: "Free — MiniMax M2.7, Kimi K2.6. Click 'Add Account' to auto-generate a token, or add your own API key.",
+    freeNote:
+      "Free — MiniMax M2.7, Kimi K2.6. Click 'Add Account' to auto-generate a token, or add your own API key.",
     authHint: "Click 'Add Account' to auto-generate a token, or add a manual API key.",
     apiHint: "Auto-generate a token or paste your own API key.",
     apiKeyUrl: "https://inference.dahl.global/tokens",
@@ -819,5 +820,18 @@ export const APIKEY_PROVIDERS_GATEWAYS = {
       "Get a free API key via NaraRouter's Telegram channel, then paste it here as a Bearer token.",
     apiHint:
       "OpenAI-compatible endpoint at https://router.bynara.id/v1. Free-tier models are pinned; others need credit.",
+  },
+  regolo: {
+    id: "regolo",
+    alias: "regolo",
+    name: "Regolo AI",
+    icon: "hub",
+    color: "#6366F1",
+    textIcon: "RG",
+    website: "https://regolo.ai",
+    passthroughModels: true,
+    authHint: "Get your Regolo API key from regolo.ai, then paste it here as a Bearer token.",
+    apiHint:
+      "OpenAI-compatible endpoint at https://api.regolo.ai/v1 with dynamic model discovery (19 models).",
   },
 };
