@@ -20,7 +20,8 @@ import {
   recordModelLockoutFailure,
   isDailyQuotaExhausted,
 } from "@omniroute/open-sse/services/accountFallback.ts";
-import { getModelInfo, getComboForModel } from "../services/model";
+import { getCombo, getComboForModel, getModelInfo } from "../services/model";
+import { stripContextWindowSuffix } from "@omniroute/open-sse/services/model.ts";
 import { resolveBareModelToConnectionDefault } from "@omniroute/open-sse/services/model.ts";
 import { errorResponse } from "@omniroute/open-sse/utils/error.ts";
 import { getImageModelEntry } from "@omniroute/open-sse/config/imageRegistry.ts";
@@ -393,6 +394,17 @@ async function handleChatImplementation(
   // resolveRoutingModel). The resolved model still passes through
   // enforceApiKeyPolicy below, so it cannot bypass per-key allowlists.
   let modelStr = resolveRoutingModel(request, body);
+  if (typeof modelStr === "string") {
+    // Preserve literal combo names such as "Claude [1m]". Context tags are
+    // stripped only when the exact request does not identify a combo.
+    const exactCombo = await getCombo(modelStr);
+    if (!exactCombo) {
+      modelStr = stripContextWindowSuffix(modelStr) || modelStr;
+      if (body?.model !== modelStr) {
+        body = { ...body, model: modelStr };
+      }
+    }
+  }
 
   // cc discovery alias (`claude/<provider>/<model>`, `claude/combo/<name>`):
   // resolve back to the real id before any combo lookup / resolveModelOrError()
@@ -1557,6 +1569,26 @@ async function handleSingleModelChat(
           // Plain re-attempt of the same request: no markAccountUnavailable, no
           // excludedConnectionIds mutation (an early close is not a bad connection).
           continue;
+        }
+
+        // #8928: once the bounded same-connection retry is unavailable or exhausted,
+        // remove only the affinity pin that still points at this failed connection. This lets
+        // the next client retry select another eligible account without deleting a
+        // pin that may already have moved to a healthy connection.
+        const isTerminalStreamEarlyEof =
+          result.errorCode === "STREAM_EARLY_EOF" ||
+          result.errorType === "stream_early_eof";
+
+        if (isTerminalStreamEarlyEof && runtimeOptions.sessionAffinityKey) {
+          try {
+            evictSessionAccountAffinityForConnection(
+              runtimeOptions.sessionAffinityKey,
+              provider,
+              credentials.connectionId
+            );
+          } catch {
+            // Best-effort: the current response still surfaces the original 502.
+          }
         }
 
         // Stream readiness timeout is an upstream stall after an HTTP response was received,
