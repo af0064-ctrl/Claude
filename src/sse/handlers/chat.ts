@@ -543,6 +543,7 @@ async function handleChatImplementation(
     model: modelStr,
     apiKeyId: apiKeyInfo?.id ?? null,
     clientSessionIdHeader: clientConversationHeader,
+    correlationId: reqId,
   });
 
   // T08: per-key active session limit (0 = unlimited).
@@ -946,7 +947,10 @@ async function handleChatImplementation(
         });
       } catch {}
     }
-    return withConversationId(withCorrelationId(withSessionHeader(response, sessionId), reqId), conversationId);
+    return withConversationId(
+      withCorrelationId(withSessionHeader(response, sessionId), reqId),
+      conversationId
+    );
   }
   telemetry.endPhase();
 
@@ -989,7 +993,10 @@ async function handleChatImplementation(
     false
   );
   recordTelemetry(telemetry);
-  return withConversationId(withCorrelationId(withSessionHeader(response, sessionId), reqId), conversationId);
+  return withConversationId(
+    withCorrelationId(withSessionHeader(response, sessionId), reqId),
+    conversationId
+  );
 }
 
 export const handleChat = chatAdmission.withChatAdmission(handleChatImplementation);
