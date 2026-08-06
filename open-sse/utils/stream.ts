@@ -684,7 +684,8 @@ export function createSSEStream(options: StreamOptions = {}) {
   // Responses API, Anthropic SSE, and Antigravity/cloudcode terminate on
   // their own protocol events (response.completed / message_stop / last
   // response candidate respectively).
-  const shouldEmitDoneTerminator = !clientExpectsResponsesStream && !clientExpectsClaudeStream && !clientExpectsAntigravityStream;
+  const shouldEmitDoneTerminator =
+    !clientExpectsResponsesStream && !clientExpectsClaudeStream && !clientExpectsAntigravityStream;
 
   let buffer = "";
   let usage: UsageTokenRecord | null = null;
@@ -1049,9 +1050,9 @@ export function createSSEStream(options: StreamOptions = {}) {
       return;
     }
 
-    // #7095/#7176 reconciliation: compute the visible placeholder WITHOUT
-    // mutating `item` — the encrypted reasoning item (and its `encrypted_content`,
-    // required by Codex for subsequent requests) is forwarded to the client intact.
+    // #7176/#7243: only synthesize summary events from real upstream plaintext —
+    // never mutate `item` and never fabricate alarming placeholder text for
+    // encrypted-only reasoning (`encrypted_content` still forwards intact).
     const visibleSummary = getVisibleResponsesReasoningSummaryText(item);
 
     if (!visibleSummary) {
