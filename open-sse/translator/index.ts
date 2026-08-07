@@ -696,6 +696,7 @@ export function initState(sourceFormat) {
       inThinking: false,
       parseTextualReasoningTags: false,
       funcArgsBuf: {},
+      funcArgsEscapeState: {},
       funcNames: {},
       funcCallIds: {},
       funcArgsDone: {},
