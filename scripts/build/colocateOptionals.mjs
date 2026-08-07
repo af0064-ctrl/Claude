@@ -46,8 +46,42 @@
  * fail-open, so this never throws into the install.
  */
 
-import { cpSync, existsSync, mkdirSync, readFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+
+/**
+ * A package directory existing is not proof it was fully copied — Next.js's own
+ * standalone trace can create a stub directory containing only `package.json`
+ * for a package it references but doesn't fully bundle (e.g. a dynamically
+ * imported optional dependency it can't statically resolve). Both the
+ * closure-level and per-package skip checks below used to test bare directory
+ * existence, so that Next-created stub made colocateLlmlinguaOptionals believe
+ * the package was "already co-located" and skip copying its real `dist/`
+ * output entirely — silently shipping a package with a manifest but no code
+ * (breaks `require.resolve` at runtime).
+ *
+ * Check for the package's declared `main` entry file when it has one (the
+ * common case for real npm packages, including this closure's actual seeds).
+ * A package with no `main` field has no single file to check, so compare
+ * against the SOURCE package's own top-level entries instead: the copy is
+ * complete once every entry the source has is also present at dest — correct
+ * both for real multi-file packages and for a metadata-only source package
+ * (package.json is then the entire, faithfully-copied contents).
+ */
+function isPackageFullyCopied(srcDir, destDir) {
+  if (!existsSync(destDir)) return false;
+  let manifest;
+  try {
+    manifest = JSON.parse(readFileSync(join(destDir, "package.json"), "utf8"));
+  } catch {
+    return false; // no readable manifest — treat as not present
+  }
+  if (typeof manifest.main === "string" && manifest.main.trim()) {
+    return existsSync(join(destDir, manifest.main));
+  }
+  if (!existsSync(srcDir)) return true; // nothing to compare against — trust dest as-is
+  return readdirSync(srcDir).every((entry) => existsSync(join(destDir, entry)));
+}
 
 /**
  * Entry packages of the SLM optional stack (the closure roots). `@huggingface/transformers` is
@@ -129,9 +163,7 @@ export function colocateLlmlinguaOptionals({
   if (!existsSync(targetNm)) {
     return {
       skipped: true,
-      reason: targetNodeModulesDir
-        ? "no target node_modules"
-        : "no standalone dist/node_modules",
+      reason: targetNodeModulesDir ? "no target node_modules" : "no standalone dist/node_modules",
     };
   }
 
@@ -146,7 +178,7 @@ export function colocateLlmlinguaOptionals({
   // populated bundle must still receive any missing transitive dependencies.
   if (
     closure.length > 0 &&
-    closure.every((name) => existsSync(join(targetNm, name)))
+    closure.every((name) => isPackageFullyCopied(join(rootNm, name), join(targetNm, name)))
   ) {
     return { skipped: true, reason: "already co-located" };
   }
@@ -155,16 +187,14 @@ export function colocateLlmlinguaOptionals({
 
   for (const name of closure) {
     const dest = join(targetNm, name);
-    if (existsSync(dest)) continue;
+    if (isPackageFullyCopied(join(rootNm, name), dest)) continue;
 
     try {
       mkdirSync(dirname(dest), { recursive: true });
       cpSync(join(rootNm, name), dest, { recursive: true });
       copied++;
     } catch (err) {
-      log(
-        `  ⚠️  LLMLingua optional co-location failed for ${name}: ${err.message}`
-      );
+      log(`  ⚠️  LLMLingua optional co-location failed for ${name}: ${err.message}`);
     }
   }
 
