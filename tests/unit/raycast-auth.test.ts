@@ -34,9 +34,9 @@ describe("raycast auth protocol", () => {
 
   it("decodes aid from JWT payload", () => {
     const header = Buffer.from(JSON.stringify({ typ: "JWT", alg: "HS256" })).toString("base64url");
-    const payload = Buffer.from(JSON.stringify({ aid: "test-aid-123", exp: 9999999999, iat: 1 })).toString(
-      "base64url"
-    );
+    const payload = Buffer.from(
+      JSON.stringify({ aid: "test-aid-123", exp: 9999999999, iat: 1 })
+    ).toString("base64url");
     const jwt = `${header}.${payload}.fake-sig`;
     assert.equal(decodeAidFromRaycastJwt(jwt), "test-aid-123");
   });

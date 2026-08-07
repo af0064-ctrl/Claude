@@ -11,7 +11,14 @@
 
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmdirSync, unlinkSync } from "node:fs";
+import {
+  copyFileSync,
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmdirSync,
+  unlinkSync,
+} from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -78,23 +85,33 @@ if (!token) {
   process.exit(1);
 }
 
-const users = queryDb("SELECT analyticsId, email, username, hasProFeatures, hasBetterAI FROM user LIMIT 1;");
+const users = queryDb(
+  "SELECT analyticsId, email, username, hasProFeatures, hasBetterAI FROM user LIMIT 1;"
+);
 const user = users[0] || {};
 const deviceId =
   user.analyticsId ||
-  JSON.parse(readFileSync(join(RAYCAST_SUPPORT, "posthog.distinctId"), "utf-8"))["posthog.distinctId"];
+  JSON.parse(readFileSync(join(RAYCAST_SUPPORT, "posthog.distinctId"), "utf-8"))[
+    "posthog.distinctId"
+  ];
 
-console.log(JSON.stringify({
-  accessTokenPreview: redact(token),
-  accessToken: token,
-  deviceId,
-  aid: deviceId,
-  email: user.email || store?.user?.email,
-  username: user.username || store?.user?.username,
-  hasProFeatures: !!user.hasProFeatures,
-  hasBetterAI: !!user.hasBetterAI,
-  sources: {
-    bearer: "Keychain Raycast / raycast-store_credentials",
-    deviceId: "raycast-enc.sqlite user.analyticsId",
-  },
-}, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      accessTokenPreview: redact(token),
+      accessToken: token,
+      deviceId,
+      aid: deviceId,
+      email: user.email || store?.user?.email,
+      username: user.username || store?.user?.username,
+      hasProFeatures: !!user.hasProFeatures,
+      hasBetterAI: !!user.hasBetterAI,
+      sources: {
+        bearer: "Keychain Raycast / raycast-store_credentials",
+        deviceId: "raycast-enc.sqlite user.analyticsId",
+      },
+    },
+    null,
+    2
+  )
+);

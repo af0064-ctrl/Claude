@@ -40,7 +40,10 @@ const DEFAULT_FORWARDED_HEADER_BUDGET_BYTES = 768;
  * module-cache manipulation.
  */
 export function resolveForwardedHeaderBudget(env?: string): number {
-  const parsed = Number.parseInt(String(env ?? process.env.OMNIROUTE_FORWARDING_HEADER_BUDGET_BYTES), 10);
+  const parsed = Number.parseInt(
+    String(env ?? process.env.OMNIROUTE_FORWARDING_HEADER_BUDGET_BYTES),
+    10
+  );
   return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_FORWARDED_HEADER_BUDGET_BYTES;
 }
 

@@ -8,7 +8,14 @@
 
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmdirSync, unlinkSync } from "node:fs";
+import {
+  copyFileSync,
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  rmdirSync,
+  unlinkSync,
+} from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -118,7 +125,12 @@ function readAnalyticsIdFromPosthog(): string | null {
   }
 }
 
-function readUserProfile(): { email?: string; username?: string; hasProFeatures?: boolean; hasBetterAI?: boolean } {
+function readUserProfile(): {
+  email?: string;
+  username?: string;
+  hasProFeatures?: boolean;
+  hasBetterAI?: boolean;
+} {
   try {
     const passphrase = getDatabasePassphrase();
     const rows = queryEncryptedDb(
@@ -167,9 +179,7 @@ export function extractLocalRaycastCredentials(): RaycastLocalCredentials {
   const oauth = (store?.oauth || {}) as { access_token?: string };
   const accessToken = oauth.access_token?.trim();
   if (!accessToken) {
-    throw new Error(
-      "Raycast bearer token not found in Keychain — open Raycast and sign in first"
-    );
+    throw new Error("Raycast bearer token not found in Keychain — open Raycast and sign in first");
   }
 
   const analyticsFromDb = readAnalyticsIdFromDb();

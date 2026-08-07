@@ -20,22 +20,22 @@ describe("auth redirect login (port from 9router#3005)", () => {
     assert.ok(redirectCheck, "login page must check both authenticated and requireLogin");
     assert.ok(
       source.includes("data.authenticated === true"),
-      "login page must check data.authenticated === true for redirect",
+      "login page must check data.authenticated === true for redirect"
     );
   });
 
   it("require-login API route returns authenticated field", () => {
     const source = fs.readFileSync(
       path.resolve("src/app/api/settings/require-login/route.ts"),
-      "utf-8",
+      "utf-8"
     );
     assert.ok(
       source.includes("authenticated:"),
-      "require-login route must include authenticated in the response",
+      "require-login route must include authenticated in the response"
     );
     assert.ok(
       source.includes("authenticated,"),
-      "authenticated must be part of the JSON response object (spread or key)",
+      "authenticated must be part of the JSON response object (spread or key)"
     );
   });
 });

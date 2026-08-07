@@ -3,17 +3,14 @@ import { ok, equal } from "node:assert/strict";
 
 describe("Regolo AI provider (#9031)", () => {
   it("exists in gateways catalog", async () => {
-    const { APIKEY_PROVIDERS_GATEWAYS } = await import(
-      "@/shared/constants/providers/apikey/gateways"
-    );
+    const { APIKEY_PROVIDERS_GATEWAYS } =
+      await import("@/shared/constants/providers/apikey/gateways");
     ok(APIKEY_PROVIDERS_GATEWAYS.regolo, "regolo entry should exist");
     equal(APIKEY_PROVIDERS_GATEWAYS.regolo.id, "regolo");
   });
 
   it("has registry entry with passthrough models", async () => {
-    const { regoloProvider } = await import(
-      "@/../open-sse/config/providers/registry/regolo/index"
-    );
+    const { regoloProvider } = await import("@/../open-sse/config/providers/registry/regolo/index");
     ok(regoloProvider, "regolo registry entry should exist");
     equal(regoloProvider.authType, "apikey");
     equal(regoloProvider.passthroughModels, true);

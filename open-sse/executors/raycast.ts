@@ -44,7 +44,11 @@ export class RaycastExecutor extends BaseExecutor {
       return {
         response: new Response(
           JSON.stringify({
-            error: { message: sanitizeErrorMessage(message), type: "invalid_request_error", code: "" },
+            error: {
+              message: sanitizeErrorMessage(message),
+              type: "invalid_request_error",
+              code: "",
+            },
           }),
           { status: 400, headers: { "Content-Type": "application/json" } }
         ),

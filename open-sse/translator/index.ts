@@ -160,6 +160,7 @@ function isReasoningOnlyReplayTarget(provider: unknown, model: unknown): boolean
     /(^|\/)deepseek/i.test(normalizedModel) ||
     normalizedProvider === "xiaomi-mimo" ||
     /(^|\/)mimo/i.test(normalizedModel) ||
+    /big-pickle/.test(normalizedModel) ||
     requiresAuthenticReasoningContent(normalizedProvider, normalizedModel)
   );
 }
@@ -533,7 +534,7 @@ export function translateRequest(
 
       const cacheKey = hasToolCalls
         ? msg.tool_calls[0]?.id
-        : getAssistantMessageCacheKey(result, 0);
+        : getAssistantMessageCacheKey(result, messageIndex);
       if (cacheKey) {
         const cached = lookupReasoning(cacheKey);
         if (cached) {
@@ -696,6 +697,7 @@ export function initState(sourceFormat) {
       inThinking: false,
       parseTextualReasoningTags: false,
       funcArgsBuf: {},
+      funcArgsEscapeState: {},
       funcNames: {},
       funcCallIds: {},
       funcArgsDone: {},

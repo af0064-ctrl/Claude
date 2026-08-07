@@ -27,9 +27,8 @@ describe("Provider-scoped aliases (#9068)", () => {
   });
 
   it("setProviderAlias with multiple aliases works", async () => {
-    const { setProviderAlias, getProviderAliases, removeProviderAlias } = await import(
-      "@/lib/db/models/aliases"
-    );
+    const { setProviderAlias, getProviderAliases, removeProviderAlias } =
+      await import("@/lib/db/models/aliases");
     setProviderAlias(providerId, "fast", "gpt-4o-mini");
     setProviderAlias(providerId, "best", "gpt-4o");
     setProviderAlias(providerId, "cheap", "gpt-4o-mini");

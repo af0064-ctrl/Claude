@@ -15,36 +15,28 @@ describe("Approval gate integration (#8461)", () => {
   });
 
   it("read-only command returns category and rule", async () => {
-    const { classifyCommand } = await import(
-      "@/lib/copilot/commandClassification"
-    );
+    const { classifyCommand } = await import("@/lib/copilot/commandClassification");
     const r = classifyCommand(["help"]);
     equal(r?.category, "read-only");
     ok(r?.rule.reason.length > 0, "rule should have a reason");
   });
 
   it("mutating command returns warning reason", async () => {
-    const { classifyCommand } = await import(
-      "@/lib/copilot/commandClassification"
-    );
+    const { classifyCommand } = await import("@/lib/copilot/commandClassification");
     const r = classifyCommand(["create", "something"]);
     equal(r?.category, "mutating");
     ok(r?.rule.reason.includes("changes"), "reason should explain the risk");
   });
 
   it("destructive command returns a stronger reason", async () => {
-    const { classifyCommand } = await import(
-      "@/lib/copilot/commandClassification"
-    );
+    const { classifyCommand } = await import("@/lib/copilot/commandClassification");
     const r = classifyCommand(["delete", "provider"]);
     equal(r?.category, "destructive");
     ok(r?.rule.reason.includes("permanently"), "reason should warn about permanence");
   });
 
   it("secret-affecting command warns about credentials", async () => {
-    const { classifyCommand } = await import(
-      "@/lib/copilot/commandClassification"
-    );
+    const { classifyCommand } = await import("@/lib/copilot/commandClassification");
     const r = classifyCommand(["keys", "show"]);
     equal(r?.category, "secret-affecting");
     ok(r?.rule.reason.includes("secrets"), "reason should mention secrets");

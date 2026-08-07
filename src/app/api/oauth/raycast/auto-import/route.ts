@@ -34,8 +34,7 @@ export async function GET(request: Request) {
     requires: ["macOS", "Raycast.app installed", "sqlcipher CLI (brew install sqlcipher)"],
     sources: {
       bearerToken: "Keychain → Raycast / raycast-store_credentials → oauth.access_token",
-      deviceId:
-        "Raycast encrypted DB user.analyticsId (same as posthog.distinctId on disk)",
+      deviceId: "Raycast encrypted DB user.analyticsId (same as posthog.distinctId on disk)",
     },
   });
 }

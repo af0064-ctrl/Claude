@@ -339,9 +339,10 @@ function isBotBlockMessage(message: string): boolean {
  * Reuses the routing path's existing quota vocabulary from accountFallback.ts
  * and classify429.ts instead of inventing a new vocabulary.
  */
-export function classifyTestErrorQuota(
-  errorText: string
-): { isQuota?: boolean; isTransient?: boolean } {
+export function classifyTestErrorQuota(errorText: string): {
+  isQuota?: boolean;
+  isTransient?: boolean;
+} {
   const trimmed = typeof errorText === "string" ? errorText.trim() : "";
   if (!trimmed) return {};
 
@@ -553,7 +554,8 @@ export async function runSingleModelTest(
       // error, not a bot-block. A bare 403 status without quota/bot wording still
       // falls through to the generic error branch.
       const quotaFlags = classifyTestErrorQuota(error);
-      const isBotBlock = !quotaFlags.isQuota && (streamError.statusCode === 403 || isBotBlockMessage(error));
+      const isBotBlock =
+        !quotaFlags.isQuota && (streamError.statusCode === 403 || isBotBlockMessage(error));
       return {
         modelId: fullModelStr,
         status: rateLimited ? "rate_limited" : "error",

@@ -123,7 +123,7 @@ test("P1: tokenHealthCheck checks copilotTokenExpiresAt before refreshing", asyn
   assert.match(
     src,
     /toLowerCase\(\)\s*===\s*["']github["']|_PROVIDERS\.has\(\s*String\([^)]*\)\s*\.toLowerCase\(\)\s*\)/,
-    "must be gated on a lowercase-normalized provider check (=== \"github\" literal " +
+    'must be gated on a lowercase-normalized provider check (=== "github" literal ' +
       "or a *_PROVIDERS Set membership test covering github/ghe-copilot)"
   );
 });

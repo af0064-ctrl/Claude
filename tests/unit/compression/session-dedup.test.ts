@@ -112,7 +112,9 @@ describe("session-dedup engine", () => {
     const hugeLines: string[] = [];
     for (let i = 0; i < 6000; i++) {
       // ~80 chars/line so each suffix is large — the pathological shape.
-      hugeLines.push(`${i}:               "config_snapshot": { "value": ${i}, "pad": "xxxxxxxxxxxxxx" }`);
+      hugeLines.push(
+        `${i}:               "config_snapshot": { "value": ${i}, "pad": "xxxxxxxxxxxxxx" }`
+      );
     }
     const hugeContent = hugeLines.join("\n");
     const body = makeBody([

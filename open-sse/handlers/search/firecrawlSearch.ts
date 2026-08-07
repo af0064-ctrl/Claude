@@ -72,7 +72,10 @@ export function buildFirecrawlSearchRequest(
   const envBase = process.env.FIRECRAWL_BASE_URL?.trim().replace(/\/+$/, "");
   const providerData = params.providerSpecificData as Record<string, unknown> | undefined;
   const paramBase = typeof params.baseUrl === "string" ? params.baseUrl : providerData?.baseUrl;
-  const customBase = typeof paramBase === "string" && paramBase.trim() ? paramBase.trim().replace(/\/+$/, "") : undefined;
+  const customBase =
+    typeof paramBase === "string" && paramBase.trim()
+      ? paramBase.trim().replace(/\/+$/, "")
+      : undefined;
   const rawBase = envBase || customBase;
   const url = rawBase ? `${rawBase}/v2/search` : config.baseUrl;
   const { includes, excludes } = parseDomainFilter(params.domainFilter);

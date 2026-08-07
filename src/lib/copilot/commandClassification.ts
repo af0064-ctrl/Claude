@@ -7,11 +7,7 @@
  * Unknown commands are denied by default (no matching rule → blocked).
  */
 
-export type CommandCategory =
-  | "read-only"
-  | "mutating"
-  | "destructive"
-  | "secret-affecting";
+export type CommandCategory = "read-only" | "mutating" | "destructive" | "secret-affecting";
 
 export interface ClassificationRule {
   pattern: RegExp;
@@ -24,17 +20,14 @@ const CLASSIFICATION_RULES: ClassificationRule[] = [
   {
     pattern: /\b(?:delete|remove|rm|drop|uninstall|reset)\b/i,
     category: "destructive",
-    reason:
-      "This operation permanently removes or resets data and cannot be undone.",
+    reason: "This operation permanently removes or resets data and cannot be undone.",
   },
 
   // ── Secret-affecting ──
   {
-    pattern:
-      /\b(?:show.*(?:secret|key|token|credential)|key.*show|export|auth.*token)\b/i,
+    pattern: /\b(?:show.*(?:secret|key|token|credential)|key.*show|export|auth.*token)\b/i,
     category: "secret-affecting",
-    reason:
-      "This operation may expose secrets or credentials in the output.",
+    reason: "This operation may expose secrets or credentials in the output.",
   },
 
   // ── Mutating ──
@@ -42,8 +35,7 @@ const CLASSIFICATION_RULES: ClassificationRule[] = [
     pattern:
       /\b(?:set|create|add|update|config\s+set|config\s+unset|providers?\s+add|keys?\s+create|keys?\s+revoke|settings?\s+update)\b/i,
     category: "mutating",
-    reason:
-      "This operation changes configuration or creates resources.",
+    reason: "This operation changes configuration or creates resources.",
   },
 
   // ── Read-only (lowest priority — checked last) ──
@@ -51,8 +43,7 @@ const CLASSIFICATION_RULES: ClassificationRule[] = [
     pattern:
       /\b(?:status|doctor|health|version|help|list|show|get|config\s+list|providers?\s+list|keys?\s+list|logs|models?)\b/i,
     category: "read-only",
-    reason:
-      "This operation only reads data and does not make changes.",
+    reason: "This operation only reads data and does not make changes.",
   },
 ];
 

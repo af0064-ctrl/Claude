@@ -60,9 +60,7 @@ function raycastJwt(aid, secret) {
   const iat = Date.now() / 1000;
   const header = Buffer.from(JSON.stringify({ typ: "JWT", alg: "HS256" })).toString("base64url");
   const payload = Buffer.from(JSON.stringify({ aid, exp: iat + 60, iat })).toString("base64url");
-  const signature = createHmac("sha256", secret)
-    .update(`${header}.${payload}`)
-    .digest("base64url");
+  const signature = createHmac("sha256", secret).update(`${header}.${payload}`).digest("base64url");
   return `${header}.${payload}.${signature}`;
 }
 
@@ -150,7 +148,9 @@ async function main() {
         console.error(`  ERR ${modelId} #${i + 1}:`, err.message);
       }
     }
-    const avg = latencies.length ? Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length) : 0;
+    const avg = latencies.length
+      ? Math.round(latencies.reduce((a, b) => a + b, 0) / latencies.length)
+      : 0;
     results.push({ modelId, ok, fail, avgMs: avg });
     console.log(`${modelId}: ${ok}/${rounds} ok, avg ${avg}ms`);
   }

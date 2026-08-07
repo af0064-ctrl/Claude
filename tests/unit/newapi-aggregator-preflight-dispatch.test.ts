@@ -1,7 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { resolveDynamicQuotaFetcher, preflightQuota } from "../../open-sse/services/quotaPreflight.ts";
+import {
+  resolveDynamicQuotaFetcher,
+  preflightQuota,
+} from "../../open-sse/services/quotaPreflight.ts";
 import { invalidateNewApiAggregatorQuotaCache } from "../../open-sse/services/newApiAggregatorQuotaFetcher.ts";
 import { clearQuotaMonitors } from "../../open-sse/services/quotaMonitor.ts";
 
@@ -49,11 +52,9 @@ test("resolveDynamicQuotaFetcher returns fetcher when connection has aggregator 
 });
 
 test("preflightQuota returns proceed:true for compatible provider without aggregator flag", async () => {
-  const result = await preflightQuota(
-    "openai-compatible-chat-abc123",
-    "conn-1",
-    { providerSpecificData: {} }
-  );
+  const result = await preflightQuota("openai-compatible-chat-abc123", "conn-1", {
+    providerSpecificData: {},
+  });
   assert.equal(result.proceed, true);
 });
 
@@ -77,11 +78,7 @@ test("preflightQuota with aggregator flag + feature flag resolves to aggregator 
 
   // If the feature flag is enabled, preflight should detect the exhausted quota
   // and return proceed: false. If the flag is off, it returns proceed: true.
-  const result = await preflightQuota(
-    "openai-compatible-chat-abc123",
-    connectionId,
-    connection
-  );
+  const result = await preflightQuota("openai-compatible-chat-abc123", connectionId, connection);
 
   // With the feature flag enabled, we expect proceed: false (quota: 0 = exhausted)
   // Without the flag, we expect proceed: true (no fetcher found)

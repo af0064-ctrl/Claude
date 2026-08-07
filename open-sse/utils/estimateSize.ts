@@ -74,14 +74,19 @@ function expandContainerFrame(stack: Frame[], frame: Exclude<Frame, ValueFrame>)
   stack.push({ t: "v", v: (frame.o as Record<string, unknown>)[next.value] });
 }
 
-export function estimateSizeFast(value: unknown): number {
+// `earlyExitAt` (#9439): callers comparing against their OWN threshold (see
+// chatCore/logTruncation.ts::truncateForLog) pass it here, so raising that
+// threshold doesn't silently cap what this function can report. Defaults to
+// ESTIMATE_SIZE_BYTE_LIMIT — the node-budget hardening applies either way and
+// fail-closes strictly above whichever limit is in effect.
+export function estimateSizeFast(value: unknown, earlyExitAt = ESTIMATE_SIZE_BYTE_LIMIT): number {
   let bytes = 0;
   let visitsLeft = ESTIMATE_SIZE_NODE_BUDGET;
   const seen = new WeakSet<object>();
   const stack: Frame[] = [{ t: "v", v: value }];
 
   while (stack.length > 0) {
-    if (visitsLeft <= 0) return ESTIMATE_SIZE_BYTE_LIMIT + 1;
+    if (visitsLeft <= 0) return Math.max(ESTIMATE_SIZE_BYTE_LIMIT, earlyExitAt) + 1;
 
     const frame = stack.pop()!;
     if (!isValueFrame(frame)) {
@@ -96,7 +101,7 @@ export function estimateSizeFast(value: unknown): number {
     const ty = typeof v;
     if (ty === "string" || ty === "number" || ty === "boolean") {
       bytes = addPrimitiveBytes(bytes, v as string | number | boolean);
-      if (bytes > ESTIMATE_SIZE_BYTE_LIMIT) return bytes;
+      if (bytes > earlyExitAt) return bytes;
       continue;
     }
     if (ty === "object") {

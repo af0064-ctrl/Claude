@@ -5,7 +5,11 @@
  * credits into the standard `{ plan, quotas }` response.
  */
 
-import { fetchFirecrawlQuota, getFirecrawlBaseUrl, type FirecrawlQuota } from "../firecrawlQuotaFetcher.ts";
+import {
+  fetchFirecrawlQuota,
+  getFirecrawlBaseUrl,
+  type FirecrawlQuota,
+} from "../firecrawlQuotaFetcher.ts";
 import { createQuotaFromUsage, parseResetTime } from "./quota.ts";
 
 function createFirecrawlPlanQuota(q: FirecrawlQuota) {
@@ -29,7 +33,11 @@ function createFirecrawlPlanQuota(q: FirecrawlQuota) {
   };
 }
 
-export async function getFirecrawlUsage(connectionId: string, apiKey?: string, connection?: Record<string, unknown>) {
+export async function getFirecrawlUsage(
+  connectionId: string,
+  apiKey?: string,
+  connection?: Record<string, unknown>
+) {
   if (!connectionId) {
     return { message: "Firecrawl: connection id unavailable." };
   }

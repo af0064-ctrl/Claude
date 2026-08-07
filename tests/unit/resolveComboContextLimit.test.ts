@@ -18,4 +18,3 @@ test("resolveComboContextLimit handles array of combo target objects ({ name, mo
   assert.ok(result.limit > 0);
   assert.equal(result.source, "fallback");
 });
-

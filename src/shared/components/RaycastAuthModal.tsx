@@ -20,11 +20,7 @@ type RaycastAuthModalProps = {
   onClose: () => void;
 };
 
-export default function RaycastAuthModal({
-  isOpen,
-  onSuccess,
-  onClose,
-}: RaycastAuthModalProps) {
+export default function RaycastAuthModal({ isOpen, onSuccess, onClose }: RaycastAuthModalProps) {
   const [accessToken, setAccessToken] = useState("");
   const [deviceId, setDeviceId] = useState("");
   const [signatureJwt, setSignatureJwt] = useState("");
@@ -124,8 +120,8 @@ export default function RaycastAuthModal({
 
         <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
           <p className="text-sm text-amber-900 dark:text-amber-200">
-            <strong>Local dev only.</strong> Uses your Raycast Pro subscription via reverse-engineered
-            API. Not official — may break on Raycast updates.
+            <strong>Local dev only.</strong> Uses your Raycast Pro subscription via
+            reverse-engineered API. Not official — may break on Raycast updates.
           </p>
           <button
             type="button"
