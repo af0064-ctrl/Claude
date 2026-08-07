@@ -19,6 +19,7 @@
  * (D7a) so reset-aware tie rotation stays consistent with round-robin routing.
  *
  * @changes
+ * - [2026-07-24] [Composer] - Exclude Antigravity accounts without stored projectId from reset-aware pool
  * - [2026-07-24] [Composer] - Skip quota-exhausted and rate-limited connections in reset-aware expansion
  *
  * Pure leaf: this module never imports from the combo barrel.
@@ -44,6 +45,7 @@ import {
   type QuotaFetchCacheConfig,
 } from "./quotaScoring.ts";
 import { rankByHeadroom, type HeadroomSaturation } from "./headroomRanking.ts";
+import { preferAntigravityConnectionsWithStoredProject } from "../antigravityProjectPersistence.ts";
 import { isQuotaExhaustedForRequest } from "../../../src/domain/quotaCache.ts";
 
 const RESET_AWARE_CONNECTION_CACHE_TTL_MS = 30_000;
@@ -83,9 +85,14 @@ async function getQuotaAwareConnectionsForTarget(
         (async () => {
           try {
             const connections = await getCachedProviderConnections({ provider, isActive: true });
-            const activeConnections = Array.isArray(connections)
+            let activeConnections = Array.isArray(connections)
               ? (connections as Array<Record<string, unknown>>)
               : [];
+            if (provider === "antigravity" || provider === "agy") {
+              activeConnections = preferAntigravityConnectionsWithStoredProject(
+                activeConnections
+              ) as Array<Record<string, unknown>>;
+            }
             if (
               !resetAwareConnectionCache.has(provider) &&
               resetAwareConnectionCache.size >= MAX_RESET_AWARE_CACHE

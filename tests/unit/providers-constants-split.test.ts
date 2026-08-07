@@ -72,7 +72,7 @@ test("APIKEY_PROVIDERS merges the 6 family files into 198 entries (no loss / no 
       seen.add(k);
     }
   }
-  assert.equal(famTotal, 197, "families must partition all 197 providers");
+  assert.equal(famTotal, 198, "families must partition all 198 providers");
 });
 
 test("AI_PROVIDERS Proxy aggregates all sections; lookups resolve", () => {
