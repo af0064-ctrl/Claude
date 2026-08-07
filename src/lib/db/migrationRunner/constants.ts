@@ -69,6 +69,24 @@ export const RENAMED_MIGRATION_COMPATIBILITY = [
     toVersion: "059",
     toName: "manifest_routing",
   },
+  {
+    fromVersion: "135",
+    fromName: "retired_provider_purge",
+    toVersion: "140",
+    toName: "retired_provider_purge",
+  },
+  {
+    fromVersion: "136",
+    fromName: "retired_provider_purge",
+    toVersion: "140",
+    toName: "retired_provider_purge",
+  },
+  {
+    fromVersion: "137",
+    fromName: "retired_provider_purge",
+    toVersion: "140",
+    toName: "retired_provider_purge",
+  },
 ] as const;
 
 export const LEGACY_VERSION_SLOT_MIGRATIONS = [
