@@ -17,8 +17,7 @@
 // sarvam+plamo in regional) to 193, then #8170 (inception/typhoon — inception in frontier-labs,
 // typhoon in regional) to 195, then Firecrawl dual search+fetch under SEARCH_PROVIDERS.firecrawl
 // (removed specialty-media duplicate) to 194, #8861 (Xiaomi MiMo Token Plan, regional) to 195, and
-// the Cheaper Inference gateway (OSS-sponsor reseller, gateways family) to 197 (UnoRouter, #9009),
-// and devin-cli-agentic (no-auth bridge, #8914) to 198.
+// the Cheaper Inference gateway (OSS-sponsor reseller, gateways family) to 198 (UnoRouter #9009, Raycast Pro #8895).
 import { test } from "node:test";
 import assert from "node:assert/strict";
 

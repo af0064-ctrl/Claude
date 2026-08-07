@@ -102,6 +102,7 @@ const EXPECTED_CONFIG_BY_PROVIDER = {
   clinepass: CLINE_CONFIG, // reuses the Cline WorkOS flow (clinepass: cline in providers/index.ts)
   windsurf: WINDSURF_CONFIG,
   "devin-cli": WINDSURF_CONFIG,
+  raycast: RAYCAST_CONFIG,
   trae: TRAE_CONFIG,
   "grok-cli": GROK_BUILD_OAUTH_CONFIG,
   "xai-oauth": XAI_OAUTH_CONFIG,
