@@ -36,42 +36,30 @@ function imageBody() {
 }
 
 describe("#7237 vision-capable models keep their images through compression", () => {
-  it("documents the drift: the conservative id-fragment heuristic disagrees with the authoritative spec for gpt-5.5", () => {
+  it("the heuristic AND authoritative spec both agree that gpt-5.5 is vision-capable", () => {
     assert.equal(
       isVisionModelId("gpt-5.5"),
-      false,
-      "the fragment-list heuristic has no gpt-5.x entry — it is a deliberately conservative fallback, not the source of truth"
+      true,
+      "the fragment-list heuristic now includes a gpt-5 entry — gpt-5.5 matched by substring"
     );
     assert.equal(
       getResolvedModelCapabilities({ model: "gpt-5.5" }).supportsVision,
       true,
-      "modelSpecs.ts registers gpt-5.5 with supportsVision:true — this is the authoritative source chatCore must use"
+      "modelSpecs.ts registers gpt-5.5 with supportsVision:true — authoritative source agrees"
     );
   });
 
-  it("replaceImageUrls preserves the image when fed the authoritative capability (the fixed chatCore.ts:1330 behavior)", () => {
-    const authoritativeSupportsVision = getResolvedModelCapabilities({
-      model: "gpt-5.5",
-    }).supportsVision;
-    const result = replaceImageUrls(imageBody(), { supportsVision: authoritativeSupportsVision });
+  it("replaceImageUrls preserves the image when fed the heuristic value (both paths agree on gpt-5.5)", () => {
+    const heuristicSupportsVision = isVisionModelId("gpt-5.5");
+    const result = replaceImageUrls(imageBody(), { supportsVision: heuristicSupportsVision });
     assert.equal(result.applied, false, "the image must be KEPT, not stripped to a placeholder");
     const content = result.body.messages?.[0]?.content as Array<Record<string, unknown>>;
     assert.equal(content[0].type, "image_url", "the block must remain a real image_url block");
   });
 
-  it("regresses the pre-fix bug: feeding the raw heuristic value strips the image for gpt-5.5", () => {
-    const buggyValue = isVisionModelId("gpt-5.5"); // false — the pre-fix chatCore.ts:1330 input
-    const result = replaceImageUrls(imageBody(), { supportsVision: buggyValue });
-    assert.equal(
-      result.applied,
-      true,
-      "sanity check: this reproduces the bug shape when fed the wrong (heuristic) value"
-    );
-  });
-
-  it("applyCompressionAsync end-to-end (lite mode) keeps image_url blocks for gpt-5.5 when fed the authoritative capability", async () => {
+  it("applyCompressionAsync end-to-end (lite mode) keeps image_url blocks for gpt-5.5", async () => {
     const model = "gpt-5.5";
-    const supportsVision = getResolvedModelCapabilities({ model }).supportsVision;
+    const supportsVision = isVisionModelId(model);
     const result = await applyCompressionAsync(imageBody(), "lite", { model, supportsVision });
     const content = (result.body as { messages: Array<{ content: unknown }> }).messages[0]
       .content as Array<Record<string, unknown>>;

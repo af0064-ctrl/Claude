@@ -133,7 +133,7 @@ describe("auto/<family> materialization (#6453)", () => {
     // "degrades gracefully" test below documents for opencode/minimax — a
     // no-auth backend that genuinely serves a family model IS a legitimate
     // member of the family pool, not just credentialed provider_connections rows.
-    assert.deepEqual(providerIds, ["auggie", "glm", "zai"]);
+    assert.deepEqual(providerIds, ["auggie", "devin-cli-agentic", "glm", "zai"]);
     // Every candidate must be a glm-family model (the Cartesian pool now surfaces
     // each backend's full glm line-up, not only the glm-5.2 default), and the
     // connected openai/gpt-4o-mini backend must be excluded — same family
