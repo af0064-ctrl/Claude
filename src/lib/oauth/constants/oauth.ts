@@ -541,7 +541,6 @@ export const PROVIDERS = {
   WINDSURF: "windsurf",
   DEVIN_CLI: "devin-cli",
   TRAE: "trae",
-  RAYCAST: "raycast",
   CODEBUDDY_CN: "codebuddy-cn",
   GROK_CLI: "grok-cli",
   XAI_OAUTH: "xai-oauth",

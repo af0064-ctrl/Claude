@@ -109,7 +109,6 @@ const EXPECTED_CONFIG_BY_PROVIDER = {
   "codebuddy-cn": CODEBUDDY_CN_CONFIG,
   zed: ZED_CONFIG,
   "zed-hosted": ZED_HOSTED_CONFIG,
-  raycast: RAYCAST_CONFIG,
 };
 
 const KIRO_REQUIRED_FIELDS = [
