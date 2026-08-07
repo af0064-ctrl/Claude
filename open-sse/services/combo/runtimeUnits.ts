@@ -6,9 +6,12 @@
  * - [2026-07-24] [Composer] - Skip execute-mode units at concurrency cap before dispatch
  */
 import { errorResponse } from "../../utils/error.ts";
+import { markConnectionRateLimitedUntil } from "../../../src/lib/db/providers/rateLimit.ts";
 import { recordComboRequest } from "../comboMetrics.ts";
 import { resolveDelayMs } from "./comboPredicates.ts";
 import { isRuntimeUnitAtConcurrencyCap } from "./runtimeUnitCapacity.ts";
+import { buildOfflineRuleFacts, matchesOfflineCondition } from "./offlineRule.ts";
+import { isNodeOffline, recordNodeOffline } from "./offlineState.ts";
 import { validateResponseQuality, releaseQualityClone } from "./validateQuality.ts";
 import type { ResponseValidationConfig } from "./responseValidation.ts";
 import type {
@@ -27,6 +30,8 @@ export type RuntimeUnitExecutionResult = {
   response: Response;
   unit: ResolvedComboUnit | null;
 };
+
+const GUARDED_PREDISPATCH_UNAVAILABLE_HEADER = "x-omniroute-guarded-predispatch-unavailable";
 
 type RuntimeUnitRunner = (options: HandleComboChatOptions) => Promise<Response>;
 
@@ -47,6 +52,22 @@ function findComboByName(allCombos: ComboCollectionLike, name: string): ComboLik
 
 function unitDisplayName(unit: ResolvedComboUnit): string {
   return unit.kind === "combo-ref" ? `combo:${unit.comboName}` : unit.modelStr;
+}
+
+function stripInternalGuardedHeaders(response: Response): Response {
+  const headers = new Headers(response.headers);
+  headers.delete("x-omniroute-selected-connection-id");
+  headers.delete(GUARDED_PREDISPATCH_UNAVAILABLE_HEADER);
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
+function selectedConnectionId(response: Response): string | null {
+  const value = response.headers.get("x-omniroute-selected-connection-id");
+  return value && value.trim().length > 0 ? value.trim() : null;
 }
 
 function shuffleUnits(units: ResolvedComboUnit[]): ResolvedComboUnit[] {
@@ -79,7 +100,16 @@ async function executeModelUnit(args: {
 }): Promise<Response> {
   if (args.isModelAvailable) {
     const available = await args.isModelAvailable(args.unit.modelStr, args.unit);
-    if (!available) return errorResponse(503, `Model ${args.unit.modelStr} is unavailable`);
+    if (!available) {
+      const response = errorResponse(503, `Model ${args.unit.modelStr} is unavailable`);
+      const headers = new Headers(response.headers);
+      headers.set(GUARDED_PREDISPATCH_UNAVAILABLE_HEADER, "1");
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+      });
+    }
   }
   return args.handleSingleModel(args.body, args.unit.modelStr, {
     ...args.unit,
@@ -168,6 +198,103 @@ function orderUnitsForStrategy(strategy: string, units: ResolvedComboUnit[]): Re
     return [selected, ...units.filter((unit) => unit.executionKey !== selected.executionKey)];
   }
   return units;
+}
+
+export async function executeHardRuleRuntimeUnitCombo(args: {
+  body: Record<string, unknown>;
+  combo: ComboLike;
+  units: ResolvedComboUnit[];
+  handleSingleModel: HandleSingleModel;
+  isModelAvailable?: IsModelAvailable;
+  log: ComboLogger;
+  config: Record<string, unknown>;
+  settings?: Record<string, unknown> | null;
+  allCombos: ComboCollectionLike;
+  signal?: AbortSignal | null;
+  nesting: ComboNestingContext;
+  baseOptions: HandleComboChatOptions;
+  runCombo: RuntimeUnitRunner;
+}): Promise<RuntimeUnitExecutionResult> {
+  for (const originalUnit of args.units) {
+    if (isNodeOffline(args.combo.name, originalUnit.stepId)) continue;
+    if (originalUnit.offlineCondition === undefined) {
+      const response = await executeRuntimeUnit({
+        body: args.body,
+        unit: originalUnit,
+        allCombos: args.allCombos,
+        handleSingleModel: args.handleSingleModel,
+        isModelAvailable: args.isModelAvailable,
+        runCombo: args.runCombo,
+        baseOptions: args.baseOptions,
+        nesting: args.nesting,
+        failoverBeforeRetry: false,
+        effectiveComboStrategy: "guarded-priority",
+      });
+      return { response: stripInternalGuardedHeaders(response), unit: originalUnit };
+    }
+
+    const attemptedConnections = new Set<string>();
+    for (;;) {
+      const unit =
+        originalUnit.kind === "model" && attemptedConnections.size > 0
+          ? {
+              ...originalUnit,
+              executionKey: `${originalUnit.executionKey}:hard-rule:${attemptedConnections.size}`,
+              ...(Array.isArray(originalUnit.allowedConnectionIds)
+                ? {
+                    allowedConnectionIds: originalUnit.allowedConnectionIds.filter(
+                      (id) => !attemptedConnections.has(id)
+                    ),
+                  }
+                : {}),
+              excludeConnectionIds: Array.from(attemptedConnections),
+            }
+          : originalUnit;
+      if (
+        unit.kind === "model" &&
+        Array.isArray(unit.allowedConnectionIds) &&
+        unit.allowedConnectionIds.length === 0
+      )
+        break;
+      const response = await executeRuntimeUnit({
+        body: args.body,
+        unit,
+        allCombos: args.allCombos,
+        handleSingleModel: args.handleSingleModel,
+        isModelAvailable: args.isModelAvailable,
+        runCombo: args.runCombo,
+        baseOptions: args.baseOptions,
+        nesting: args.nesting,
+        failoverBeforeRetry: false,
+        effectiveComboStrategy: "guarded-priority",
+      });
+      if (response.headers.has(GUARDED_PREDISPATCH_UNAVAILABLE_HEADER)) {
+        return { response: stripInternalGuardedHeaders(response), unit: originalUnit };
+      }
+      const facts = await buildOfflineRuleFacts(response);
+      if (!matchesOfflineCondition(originalUnit.offlineCondition, facts)) {
+        return { response: stripInternalGuardedHeaders(response), unit: originalUnit };
+      }
+      const cooldownMs = Math.max(0, originalUnit.offlineCooldownMs ?? 0);
+      const selectedId = selectedConnectionId(response);
+      if (originalUnit.kind === "model" && !originalUnit.connectionId && selectedId) {
+        if (!attemptedConnections.has(selectedId)) {
+          attemptedConnections.add(selectedId);
+          markConnectionRateLimitedUntil(selectedId, cooldownMs);
+          continue;
+        }
+        // Same selected connection returned after exclusion — stop account rotation.
+      }
+      if (originalUnit.kind === "model" && originalUnit.connectionId) {
+        markConnectionRateLimitedUntil(originalUnit.connectionId, cooldownMs);
+      } else if (originalUnit.kind === "model" && selectedId) {
+        markConnectionRateLimitedUntil(selectedId, cooldownMs);
+      }
+      recordNodeOffline(args.combo.name, originalUnit.stepId, cooldownMs);
+      break;
+    }
+  }
+  return { response: errorResponse(503, "All hard-rule combo nodes are cooling down"), unit: null };
 }
 
 export async function executeRuntimeUnitCombo(args: {
