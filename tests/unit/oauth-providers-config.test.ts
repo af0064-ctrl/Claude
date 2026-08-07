@@ -63,6 +63,7 @@ const EXPECTED_PROVIDER_KEYS = [
   "amazon-q",
   "cursor",
   "trae",
+  "raycast",
   "kilocode",
   "cline",
   "clinepass",
