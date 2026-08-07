@@ -168,9 +168,12 @@ export type ResolvedComboTarget = {
   providerId: string | null;
   connectionId: string | null;
   allowedConnectionIds?: string[] | null;
+  excludeConnectionIds?: string[] | null;
   weight: number;
   label: string | null;
   prompt?: string | null;
+  offlineCondition?: unknown;
+  offlineCooldownMs?: number;
   failoverBeforeRetry?: unknown;
   trafficType?: "production" | "shadow";
   /**
@@ -198,6 +201,8 @@ export type ResolvedComboRefTarget = {
   comboName: string;
   weight: number;
   label: string | null;
+  offlineCondition?: unknown;
+  offlineCooldownMs?: number;
 };
 
 export type ResolvedComboUnit = ResolvedComboTarget | ResolvedComboRefTarget;
